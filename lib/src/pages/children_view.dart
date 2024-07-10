@@ -31,10 +31,17 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
       body: Row(
         children: [
           Expanded(
-            child: TabulatedListView(tabController: _tabController),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TabulatedListView(tabController: _tabController),
+            ),
           ),
           const VerticalDivider(),
-          const ChildrenViewForm()
+          const Expanded(
+            child: SingleChildScrollView(
+              child: ChildrenViewForm(),
+            ),
+          ),
         ],
       ),
     );

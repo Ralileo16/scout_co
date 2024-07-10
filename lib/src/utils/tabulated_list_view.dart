@@ -16,6 +16,12 @@ class TabulatedListView extends StatelessWidget {
           SizedBox(
             height: 36,
             child: TabBar(
+              indicator: BoxDecoration(
+                color: Theme.of(context).focusColor,
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
               controller: _tabController,
               tabs: const [
                 Tab(text: "Castor"),
@@ -47,175 +53,177 @@ class TabulatedListViewData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DataTable(
-      columns: const <DataColumn>[
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'First Name',
-              style: TextStyle(fontStyle: FontStyle.italic),
+    return SingleChildScrollView(
+      child: DataTable(
+        columns: const <DataColumn>[
+          DataColumn(
+            label: Expanded(
+              child: Text(
+                'First Name',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
             ),
           ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Last Name',
-              style: TextStyle(fontStyle: FontStyle.italic),
+          DataColumn(
+            label: Expanded(
+              child: Text(
+                'Last Name',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
             ),
           ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Age',
-              style: TextStyle(fontStyle: FontStyle.italic),
+          DataColumn(
+            label: Expanded(
+              child: Text(
+                'Age',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
             ),
           ),
-        ),
-      ],
-      rows: const <DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Ben')),
-            DataCell(Text('Dover')),
-            DataCell(Text('14')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Mike')),
-            DataCell(Text('Oxard')),
-            DataCell(Text('80')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Jenny')),
-            DataCell(Text('Talia')),
-            DataCell(Text('52')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Dixie')),
-            DataCell(Text('Normous')),
-            DataCell(Text('12')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Wilma')),
-            DataCell(Text('Diqfit')),
-            DataCell(Text('16')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Ben')),
-            DataCell(Text('Dover')),
-            DataCell(Text('14')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Mike')),
-            DataCell(Text('Oxard')),
-            DataCell(Text('80')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Jenny')),
-            DataCell(Text('Talia')),
-            DataCell(Text('52')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Dixie')),
-            DataCell(Text('Normous')),
-            DataCell(Text('12')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Wilma')),
-            DataCell(Text('Diqfit')),
-            DataCell(Text('16')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Ben')),
-            DataCell(Text('Dover')),
-            DataCell(Text('14')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Mike')),
-            DataCell(Text('Oxard')),
-            DataCell(Text('80')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Jenny')),
-            DataCell(Text('Talia')),
-            DataCell(Text('52')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Dixie')),
-            DataCell(Text('Normous')),
-            DataCell(Text('12')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Wilma')),
-            DataCell(Text('Diqfit')),
-            DataCell(Text('16')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Ben')),
-            DataCell(Text('Dover')),
-            DataCell(Text('14')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Mike')),
-            DataCell(Text('Oxard')),
-            DataCell(Text('80')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Jenny')),
-            DataCell(Text('Talia')),
-            DataCell(Text('52')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Dixie')),
-            DataCell(Text('Normous')),
-            DataCell(Text('12')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Wilma')),
-            DataCell(Text('Diqfit')),
-            DataCell(Text('16')),
-          ],
-        ),
-      ],
+        ],
+        rows: const <DataRow>[
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Ben')),
+              DataCell(Text('Dover')),
+              DataCell(Text('14')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Mike')),
+              DataCell(Text('Oxard')),
+              DataCell(Text('80')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Jenny')),
+              DataCell(Text('Talia')),
+              DataCell(Text('52')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Dixie')),
+              DataCell(Text('Normous')),
+              DataCell(Text('12')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Wilma')),
+              DataCell(Text('Diqfit')),
+              DataCell(Text('16')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Ben')),
+              DataCell(Text('Dover')),
+              DataCell(Text('14')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Mike')),
+              DataCell(Text('Oxard')),
+              DataCell(Text('80')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Jenny')),
+              DataCell(Text('Talia')),
+              DataCell(Text('52')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Dixie')),
+              DataCell(Text('Normous')),
+              DataCell(Text('12')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Wilma')),
+              DataCell(Text('Diqfit')),
+              DataCell(Text('16')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Ben')),
+              DataCell(Text('Dover')),
+              DataCell(Text('14')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Mike')),
+              DataCell(Text('Oxard')),
+              DataCell(Text('80')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Jenny')),
+              DataCell(Text('Talia')),
+              DataCell(Text('52')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Dixie')),
+              DataCell(Text('Normous')),
+              DataCell(Text('12')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Wilma')),
+              DataCell(Text('Diqfit')),
+              DataCell(Text('16')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Ben')),
+              DataCell(Text('Dover')),
+              DataCell(Text('14')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Mike')),
+              DataCell(Text('Oxard')),
+              DataCell(Text('80')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Jenny')),
+              DataCell(Text('Talia')),
+              DataCell(Text('52')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Dixie')),
+              DataCell(Text('Normous')),
+              DataCell(Text('12')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(Text('Wilma')),
+              DataCell(Text('Diqfit')),
+              DataCell(Text('16')),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

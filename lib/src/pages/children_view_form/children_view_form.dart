@@ -8,77 +8,24 @@ class ChildrenViewForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return const Expanded(
       child: Form(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const CardHeaderOutline(
+            CardHeaderOutline(
               title: 'Personal Informations',
               contents: ChildrenViewChildInfoForm(),
             ),
-            const CardHeaderOutline(
+            CardHeaderOutline(
               title: 'Parent 1',
               contents: ChildrenViewParentInfoForm(),
             ),
-            const CardHeaderOutline(
+            CardHeaderOutline(
               title: 'Parent 2',
               contents: ChildrenViewParentInfoForm(),
             ),
-            Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OutlinedButton(
-                      onPressed: () {
-                        debugPrint('Received click');
-                      },
-                      child: const Text('Edit'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OutlinedButton(
-                      onPressed: () {
-                        debugPrint('Received click');
-                      },
-                      child: const Text('Save'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OutlinedButton(
-                      onPressed: () {
-                        debugPrint('Received click');
-                      },
-                      child: const Text('Download Sheet'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OutlinedButton(
-                      onPressed: () {
-                        debugPrint('Received click');
-                      },
-                      child: const Text('Print Sheet'),
-                    ),
-                  ),
-                ),
-              ],
-            )
+            ChildrenViewFormButtons()
           ],
         ),
       ),
@@ -271,6 +218,70 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+}
+
+class ChildrenViewFormButtons extends StatelessWidget {
+  const ChildrenViewFormButtons({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Flex(
+      direction: Axis.horizontal,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+              onPressed: () {
+                debugPrint('Received click');
+              },
+              child: const Text('Edit'),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+              onPressed: () {
+                debugPrint('Received click');
+              },
+              child: const Text('Save'),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+              onPressed: () {
+                debugPrint('Received click');
+              },
+              child: const Text('Download Sheet'),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+              onPressed: () {
+                debugPrint('Received click');
+              },
+              child: const Text('Print Sheet'),
+            ),
+          ),
         ),
       ],
     );

@@ -10,9 +10,9 @@ class NavDestination {
 
 const List<NavDestination> destinations = <NavDestination>[
   NavDestination(
-      'Inscriptions', Icon(Icons.article_outlined), Icon(Icons.article)),
-  NavDestination(
       'Scouts', Icon(Icons.people_alt_outlined), Icon(Icons.people_alt)),
+  NavDestination(
+      'Inscriptions', Icon(Icons.article_outlined), Icon(Icons.article)),
   NavDestination(
       'Paramètres', Icon(Icons.settings_outlined), Icon(Icons.settings)),
 ];
