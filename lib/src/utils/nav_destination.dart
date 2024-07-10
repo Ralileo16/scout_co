@@ -7,3 +7,12 @@ class NavDestination {
   final Widget icon;
   final Widget selectedIcon;
 }
+
+const List<NavDestination> destinations = <NavDestination>[
+  NavDestination(
+      'Inscriptions', Icon(Icons.article_outlined), Icon(Icons.article)),
+  NavDestination(
+      'Scouts', Icon(Icons.people_alt_outlined), Icon(Icons.people_alt)),
+  NavDestination(
+      'Paramètres', Icon(Icons.settings_outlined), Icon(Icons.settings)),
+];

@@ -9,11 +9,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 33, 150, 243),
-            brightness: Brightness.dark,
-          )),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 33, 150, 243),
+          brightness: Brightness.dark,
+        ),
+      ),
       home: const NavigationDrawerCustom(),
     );
   }

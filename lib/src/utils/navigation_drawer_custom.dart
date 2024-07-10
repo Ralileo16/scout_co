@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:scout_co/src/pages/children_view.dart';
-import 'nav_destination.dart';
-
-const List<NavDestination> destinations = <NavDestination>[
-  NavDestination(
-      'Inscriptions', Icon(Icons.article_outlined), Icon(Icons.article)),
-  NavDestination(
-      'Scouts', Icon(Icons.people_alt_outlined), Icon(Icons.people_alt)),
-  NavDestination(
-      'Paramètres', Icon(Icons.settings_outlined), Icon(Icons.settings)),
-];
+import 'package:scout_co/src/pages/test_pages_2_3.dart';
+import 'package:scout_co/src/utils/nav_destination.dart';
 
 class NavigationDrawerCustom extends StatefulWidget {
   const NavigationDrawerCustom({super.key});
@@ -37,7 +29,8 @@ class NavigationDrawerCustomState extends State<NavigationDrawerCustom> {
     scaffoldKey.currentState!.openDrawer();
   }
 
-  Widget buildDrawerScaffold(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: pages[screenIndex],
       key: scaffoldKey,
@@ -71,10 +64,5 @@ class NavigationDrawerCustomState extends State<NavigationDrawerCustom> {
         ],
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return buildDrawerScaffold(context);
   }
 }
