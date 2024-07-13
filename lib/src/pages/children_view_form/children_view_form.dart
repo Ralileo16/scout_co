@@ -236,7 +236,19 @@ class ChildrenViewFormButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded(
-          flex: 1,
+          flex: 7,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: OutlinedButton(
+              onPressed: () {
+                debugPrint('Received click');
+              },
+              child: const Text('Add new'),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 7,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
@@ -248,7 +260,7 @@ class ChildrenViewFormButtons extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 7,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
@@ -260,26 +272,26 @@ class ChildrenViewFormButtons extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 7,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
               onPressed: () {
                 debugPrint('Received click');
               },
-              child: const Text('Download Sheet'),
+              child: const Text('Cancel'),
             ),
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
               onPressed: () {
                 debugPrint('Received click');
               },
-              child: const Text('Print Sheet'),
+              child: const Icon(Icons.more_horiz),
             ),
           ),
         ),
