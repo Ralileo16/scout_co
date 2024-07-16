@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scout_co/src/dto/children_dto.dart';
+import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/utils/tabulated_list_view.dart';
 import 'children_view_form/children_view_form.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scout_co/src/dto/children_dto.dart';
+import 'package:scout_co/src/model/children_dto.dart';
 
 class TabulatedListView extends StatelessWidget {
   const TabulatedListView({
