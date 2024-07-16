@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:scout_co/src/utils/card_header_outline.dart';
 
-class ChildrenViewForm extends StatelessWidget {
+class ChildrenViewForm extends StatefulWidget {
   const ChildrenViewForm({
     super.key,
   });
 
+  @override
+  State<ChildrenViewForm> createState() => _ChildrenViewFormState();
+}
+
+class _ChildrenViewFormState extends State<ChildrenViewForm> {
   @override
   Widget build(BuildContext context) {
     return const Expanded(

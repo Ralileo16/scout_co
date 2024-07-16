@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:scout_co/src/dto/children_dto.dart';
 
 class TabulatedListView extends StatelessWidget {
-  const TabulatedListView(
-      {super.key,
-      required TabController tabController,
-      required List<String> tabTitles,
-      required List<String> dataTableHeader,
-      required List<ChildrenDto> dataTableData})
-      : _tabController = tabController,
+  const TabulatedListView({
+    super.key,
+    required TabController tabController,
+    required List<String> tabTitles,
+    required List<String> dataTableHeader,
+    required List<ChildrenDto> dataTableData,
+  })  : _tabController = tabController,
         _tabTitles = tabTitles,
         _dataTableHeader = dataTableHeader,
         _dataTableData = dataTableData;
@@ -92,9 +92,9 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
 
   bool b = true;
 
-  onSortColum(int columnIndex, bool ascending) {
+  onSortColum(int columnIndex, bool sortAscending) {
     if (columnIndex == 0) {
-      if (ascending) {
+      if (sortAscending) {
         widget._dataTableData
             .sort((a, b) => a.firstName.compareTo(b.firstName));
       } else {
@@ -103,19 +103,23 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
       }
     }
     if (columnIndex == 1) {
-      if (ascending) {
+      if (sortAscending) {
         widget._dataTableData.sort((a, b) => a.lastName.compareTo(b.lastName));
       } else {
         widget._dataTableData.sort((a, b) => b.lastName.compareTo(a.lastName));
       }
     }
     if (columnIndex == 2) {
-      if (ascending) {
+      if (sortAscending) {
         widget._dataTableData.sort((a, b) => a.age.compareTo(b.age));
       } else {
         widget._dataTableData.sort((a, b) => b.age.compareTo(a.age));
       }
     }
+  }
+
+  onCellTap(int id) {
+    debugPrint(id.toString());
   }
 
   @override
@@ -135,7 +139,11 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
               onSort: (columnIndex, sortAscending) {
                 setState(
                   () {
-                    _sortAsc = !_sortAsc;
+                    if (_sortColumnIndex == columnIndex) {
+                      _sortAsc = !_sortAsc;
+                    } else {
+                      _sortAsc = true;
+                    }
                     _sortColumnIndex = columnIndex;
                   },
                 );
@@ -156,21 +164,43 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
             return DataRow(
               cells: <DataCell>[
                 DataCell(
+                  // onTap: () {
+                  //   onCellTap();
+                  // },
                   Text(
                     e.firstName,
                     style: b ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
                   ),
                 ),
                 DataCell(
+                  // onTap: () {
+                  //   onCellTap();
+                  // },
                   Text(
                     e.lastName,
                     style: b ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
                   ),
                 ),
                 DataCell(
-                  Text(
-                    e.age.toString(),
-                    style: b ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
+                  // onTap: () {
+                  //   onCellTap();
+                  // },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        e.age.toString(),
+                        style: b
+                            ? const TextStyle(color: Color(0xFFA0CAFD))
+                            : null,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.keyboard_arrow_right_rounded),
+                        onPressed: () {
+                          onCellTap(e.id);
+                        },
+                      )
+                    ],
                   ),
                 ),
               ],

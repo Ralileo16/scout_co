@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PageTest2 extends StatelessWidget {
@@ -14,14 +15,37 @@ class PageTest2 extends StatelessWidget {
 }
 
 class PageTest3 extends StatelessWidget {
-  const PageTest3({super.key});
+  final number = ValueNotifier(0);
+
+  PageTest3({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Page test 3'),
+    return Scaffold(
+      body: ValueListenableBuilder<int>(
+        valueListenable: number,
+        builder: (context, value, child) {
+          return Center(
+            child: ElevatedButton(
+              onPressed: () {
+                number.value++;
+              },
+              child: MyWidget(number),
+            ),
+          );
+        },
       ),
     );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  final ValueListenable<int> number;
+
+  const MyWidget(this.number, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(number.value.toString());
   }
 }

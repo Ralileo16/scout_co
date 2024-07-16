@@ -16,7 +16,7 @@ class NavigationDrawerCustomState extends State<NavigationDrawerCustom> {
 
   int screenIndex = 0;
 
-  var pages = [const ChildrenViewPage(), const PageTest2(), const PageTest3()];
+  var pages = [const ChildrenViewPage(), const PageTest2(), PageTest3()];
 
   void handleScreenChanged(int selectedScreen) {
     setState(() {
