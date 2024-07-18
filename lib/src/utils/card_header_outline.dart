@@ -4,7 +4,7 @@ class CardHeaderOutline extends StatelessWidget {
   const CardHeaderOutline({
     super.key,
     required this.title,
-    required this.contents,
+    required this.child,
     this.smallText,
     this.subTitle,
     this.widthPercentage = 1,
@@ -12,7 +12,7 @@ class CardHeaderOutline extends StatelessWidget {
 
   final String? smallText, subTitle;
   final String title;
-  final Widget contents;
+  final Widget child;
   final double widthPercentage;
 
   @override
@@ -28,7 +28,7 @@ class CardHeaderOutline extends StatelessWidget {
                 color: Theme.of(context).dividerColor,
               ),
             ),
-            child: contents,
+            child: child,
           ),
         ),
         // Container on top, positioned top right with slight overlap (top container)

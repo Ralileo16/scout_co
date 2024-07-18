@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scout_co/cubit/children_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 
 class TabulatedListView extends StatelessWidget {
@@ -119,7 +121,8 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
   }
 
   onCellTap(int id) {
-    debugPrint(id.toString());
+    final childrenDtoCubit = context.read<ChildrenViewCubit>();
+    childrenDtoCubit.getChildrenDto(id);
   }
 
   @override
@@ -165,7 +168,7 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
               cells: <DataCell>[
                 DataCell(
                   // onTap: () {
-                  //   onCellTap();
+                  //   onCellTap(e.id);
                   // },
                   Text(
                     e.firstName,
@@ -174,7 +177,7 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
                 ),
                 DataCell(
                   // onTap: () {
-                  //   onCellTap();
+                  //   onCellTap(e.id);
                   // },
                   Text(
                     e.lastName,
@@ -183,7 +186,7 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
                 ),
                 DataCell(
                   // onTap: () {
-                  //   onCellTap();
+                  //   onCellTap(e.id);
                   // },
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

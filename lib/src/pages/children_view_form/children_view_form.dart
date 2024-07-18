@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scout_co/cubit/children_view_cubit.dart';
+import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/utils/card_header_outline.dart';
+import 'package:intl/intl.dart';
 
 class ChildrenViewForm extends StatefulWidget {
   const ChildrenViewForm({
@@ -13,38 +17,97 @@ class ChildrenViewForm extends StatefulWidget {
 class _ChildrenViewFormState extends State<ChildrenViewForm> {
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
-      child: Form(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CardHeaderOutline(
-              title: 'Personal Informations',
-              contents: ChildrenViewChildInfoForm(),
+    return BlocBuilder<ChildrenViewCubit, ChildrenViewState>(
+      builder: (context, state) {
+        if (state is ChildrenViewLoaded) {
+          ChildrenDto childrenDto = state.childrenDto;
+          return Form(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CardHeaderOutline(
+                  title: 'Personal Informations',
+                  child: ChildrenViewChildInfoForm(
+                    childrenDto: childrenDto,
+                  ),
+                ),
+                const CardHeaderOutline(
+                  title: 'Parent 1',
+                  child: ChildrenViewParentInfoForm(),
+                ),
+                const CardHeaderOutline(
+                  title: 'Parent 2',
+                  child: ChildrenViewParentInfoForm(),
+                ),
+                const ChildrenViewFormButtons()
+              ],
             ),
-            CardHeaderOutline(
-              title: 'Parent 1',
-              contents: ChildrenViewParentInfoForm(),
+          );
+        } else {
+          return Form(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CardHeaderOutline(
+                  title: 'Personal Informations',
+                  child: ChildrenViewChildInfoForm(),
+                ),
+                const CardHeaderOutline(
+                  title: 'Parent 1',
+                  child: ChildrenViewParentInfoForm(),
+                ),
+                const CardHeaderOutline(
+                  title: 'Parent 2',
+                  child: ChildrenViewParentInfoForm(),
+                ),
+                const ChildrenViewFormButtons()
+              ],
             ),
-            CardHeaderOutline(
-              title: 'Parent 2',
-              contents: ChildrenViewParentInfoForm(),
-            ),
-            ChildrenViewFormButtons()
-          ],
-        ),
-      ),
+          );
+        }
+      },
     );
   }
 }
 
 class ChildrenViewChildInfoForm extends StatelessWidget {
-  const ChildrenViewChildInfoForm({
+  ChildrenViewChildInfoForm({
     super.key,
-  });
+    ChildrenDto? childrenDto,
+  }) : _childrenDto = childrenDto;
+
+  final ChildrenDto? _childrenDto;
+
+  final TextEditingController _textEditingControllerFirstName =
+      TextEditingController();
+  final TextEditingController _textEditingControllerLastName =
+      TextEditingController();
+  final TextEditingController _textEditingControllerPhone =
+      TextEditingController();
+  final TextEditingController _textEditingControllerEmail =
+      TextEditingController();
+  final TextEditingController _textEditingControllerGender =
+      TextEditingController();
+  final TextEditingController _textEditingControllerDateOfBirth =
+      TextEditingController();
+  final TextEditingController _textEditingControllerAge =
+      TextEditingController();
+  final TextEditingController _textEditingControllerNotes =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (_childrenDto != null) {
+      _textEditingControllerFirstName.text = _childrenDto.firstName;
+      _textEditingControllerLastName.text = _childrenDto.lastName;
+      _textEditingControllerPhone.text = _childrenDto.phone ?? "Not provided";
+      _textEditingControllerEmail.text = _childrenDto.email ?? "Not provided";
+      _textEditingControllerGender.text = _childrenDto.gender ?? "Not provided";
+      _textEditingControllerDateOfBirth.text =
+          DateFormat('yyyy-MM-dd').format(_childrenDto.dateOfBirth);
+      _textEditingControllerAge.text = _childrenDto.age.toString();
+      _textEditingControllerNotes.text = _childrenDto.notes ?? "";
+    }
     return Column(
       children: [
         const SizedBox(
@@ -56,6 +119,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: _textEditingControllerFirstName,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'First Name',
@@ -67,6 +131,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: _textEditingControllerLastName,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Last Name',
@@ -82,6 +147,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: _textEditingControllerPhone,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Phone Number',
@@ -93,6 +159,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: _textEditingControllerEmail,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'E-mail',
@@ -110,6 +177,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: _textEditingControllerGender,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Gender',
@@ -122,6 +190,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: _textEditingControllerDateOfBirth,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Date of Birth',
@@ -134,6 +203,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: _textEditingControllerAge,
                   enabled: false,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -147,6 +217,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextFormField(
+            controller: _textEditingControllerNotes,
             keyboardType: TextInputType.multiline,
             maxLines: 5,
             decoration: const InputDecoration(
