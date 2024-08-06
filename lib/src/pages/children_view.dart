@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scout_co/cubit/children_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
+import 'package:scout_co/src/model/children_dto_repository.dart';
 import 'package:scout_co/src/utils/tabulated_list_view.dart';
 import 'children_view_form/children_view_form.dart';
 
+//Snackbar + full Page
 class ChildrenViewPage extends StatefulWidget {
   const ChildrenViewPage({super.key});
 
@@ -29,8 +31,6 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
     "Age",
   ];
 
-  final List<ChildrenDto> _dataTableData = childrenDtoList;
-
   @override
   void initState() {
     super.initState();
@@ -46,7 +46,7 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChildrenViewCubit(ChildrenDtoRepository()),
+      create: (context) => ChildrenViewCubit(ChildrenDtoRepository(), [], null),
       child: Scaffold(
         body: BlocListener<ChildrenViewCubit, ChildrenViewState>(
           listener: (context, state) {
@@ -66,7 +66,6 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
             tabController: _tabController,
             tabTitles: _tabTitles,
             dataTableHeader: _dataTableHeader,
-            dataTableData: _dataTableData,
           ),
         ),
       ),
@@ -74,45 +73,100 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
   }
 }
 
+//List + Form
 class ChildrenView extends StatelessWidget {
   const ChildrenView({
     super.key,
     required TabController tabController,
     required List<String> tabTitles,
     required List<String> dataTableHeader,
-    required List<ChildrenDto> dataTableData,
   })  : _tabController = tabController,
         _tabTitles = tabTitles,
-        _dataTableHeader = dataTableHeader,
-        _dataTableData = dataTableData;
+        _dataTableHeader = dataTableHeader;
 
   final TabController _tabController;
   final List<String> _tabTitles;
   final List<String> _dataTableHeader;
-  final List<ChildrenDto> _dataTableData;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TabulatedListView(
-              tabController: _tabController,
-              tabTitles: _tabTitles,
-              dataTableHeader: _dataTableHeader,
-              dataTableData: _dataTableData,
-            ),
-          ),
-        ),
-        const VerticalDivider(),
-        const Expanded(
-          child: SingleChildScrollView(
-            child: ChildrenViewForm(),
-          ),
-        ),
-      ],
+    return BlocBuilder<ChildrenViewCubit, ChildrenViewState>(
+      builder: (context, state) {
+        if (state is ChildrenViewLoaded) {
+          List<ChildrenDto> dataTableData = state.childrenDtoList;
+          return Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TabulatedListView(
+                    tabController: _tabController,
+                    tabTitles: _tabTitles,
+                    dataTableHeader: _dataTableHeader,
+                    dataTableData: dataTableData,
+                  ),
+                ),
+              ),
+              const VerticalDivider(),
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: ChildrenViewForm(),
+                ),
+              ),
+            ],
+          );
+        } else if (state is ChildrenViewLoadedWithSelect) {
+          List<ChildrenDto> dataTableData = state.childrenDtoList;
+          return Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TabulatedListView(
+                    tabController: _tabController,
+                    tabTitles: _tabTitles,
+                    dataTableHeader: _dataTableHeader,
+                    dataTableData: dataTableData,
+                  ),
+                ),
+              ),
+              const VerticalDivider(),
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: ChildrenViewForm(),
+                ),
+              ),
+            ],
+          );
+        } else if (state is ChildrenViewLoadedWithSelectCanEdit) {
+          List<ChildrenDto> dataTableData = state.childrenDtoList;
+          return Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TabulatedListView(
+                    tabController: _tabController,
+                    tabTitles: _tabTitles,
+                    dataTableHeader: _dataTableHeader,
+                    dataTableData: dataTableData,
+                  ),
+                ),
+              ),
+              const VerticalDivider(),
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: ChildrenViewForm(),
+                ),
+              ),
+            ],
+          );
+        } else {
+          final childrenDtoCubit = context.read<ChildrenViewCubit>();
+          childrenDtoCubit.getAllChildrenDto();
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

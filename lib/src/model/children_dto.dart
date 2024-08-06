@@ -19,6 +19,9 @@ class ChildrenDto {
   int? fkParent2;
   ParentDto? parentDto1;
   ParentDto? parentDto2;
+  DateTime dateRegistration;
+  DateTime? datePaid;
+  bool isPaid;
 
   ChildrenDto({
     required this.id,
@@ -38,62 +41,58 @@ class ChildrenDto {
     this.fkParent2,
     this.parentDto1,
     this.parentDto2,
+    required this.dateRegistration,
+    this.datePaid,
+    required this.isPaid,
   });
 
   int get age => AgeCalculator.age(dateOfBirth).years;
-}
 
-class ChildrenDtoRepository {
-  Future<ChildrenDto> fetchChildrenDto(int id) {
-    // Simulate network delay
-    //throw NetworkException();
-    //TODO try catch expection when this will be connected to a DB
-    return Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        return childrenDtoList.firstWhere((e) => e.id == id);
-      },
-    );
+  factory ChildrenDto.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        'id': int id,
+        'firstName': String firstName,
+        'lastName': String lastName,
+        'dateOfBirth': String dateOfBirth,
+        'gender': String gender,
+        'address': String address,
+        'city': String city,
+        'province': String province,
+        'postalCode': String postalCode,
+        'phone': String phone,
+        'email': String email,
+        'consentImage': bool consentImage,
+        'notes': String notes,
+        'fkParent1': int fkParent1,
+        'fkParent2': int fkParent2,
+        'dateRegistration': String dateRegistration,
+        'datePaid': String? datePaid,
+        'isPaid': bool isPaid,
+      } =>
+        ChildrenDto(
+          id: id,
+          firstName: firstName,
+          lastName: lastName,
+          dateOfBirth: DateTime.parse(dateOfBirth),
+          gender: gender,
+          address: address,
+          city: city,
+          province: province,
+          postalCode: postalCode,
+          phone: phone,
+          email: email,
+          consentImage: consentImage,
+          notes: notes,
+          fkParent1: fkParent1,
+          fkParent2: fkParent2,
+          parentDto1: ParentDto.fromJson(json['fkParent1Navigation']),
+          parentDto2: ParentDto.fromJson(json['fkParent2Navigation']),
+          dateRegistration: DateTime.parse(dateRegistration),
+          datePaid: datePaid != null ? DateTime.parse(datePaid) : null,
+          isPaid: isPaid,
+        ),
+      _ => throw const FormatException('Failed to load children.'),
+    };
   }
 }
-
-class NetworkException implements Exception {}
-
-List<ChildrenDto> childrenDtoList = [
-  ChildrenDto(
-    id: 1,
-    firstName: 'Ben',
-    lastName: 'Dover',
-    dateOfBirth: DateTime(2008, 07, 06),
-    gender: "Male",
-    address: "123 rue des bateaux",
-    city: "CaFlotte",
-    province: "SurLeau",
-    postalCode: "L9L 9L9",
-    consentImage: true,
-  ),
-  ChildrenDto(
-    id: 2,
-    firstName: 'Dixie',
-    lastName: 'Normous',
-    dateOfBirth: DateTime(2002, 12, 30),
-    gender: "Female",
-    address: "456 rue des bateaux",
-    city: "CaFlotte",
-    province: "SurLeau",
-    postalCode: "L9L 9L9",
-    consentImage: true,
-  ),
-  ChildrenDto(
-    id: 3,
-    firstName: 'Jenny',
-    lastName: 'Talia',
-    dateOfBirth: DateTime(1999, 01, 15),
-    gender: "Female",
-    address: "789 rue des bateaux",
-    city: "CaFlotte",
-    province: "SurLeau",
-    postalCode: "L9L 9L9",
-    consentImage: true,
-  ),
-];

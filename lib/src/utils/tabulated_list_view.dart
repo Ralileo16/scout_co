@@ -50,19 +50,25 @@ class TabulatedListView extends StatelessWidget {
               children: [
                 TabulatedListViewData(
                   dataTableHeader: _dataTableHeader,
-                  dataTableData: _dataTableData,
+                  dataTableData:
+                      _dataTableData.where((e) => e.age <= 8).toList(),
                 ),
                 TabulatedListViewData(
                   dataTableHeader: _dataTableHeader,
-                  dataTableData: _dataTableData,
+                  dataTableData: _dataTableData
+                      .where((e) => e.age <= 12 && e.age > 8)
+                      .toList(),
                 ),
                 TabulatedListViewData(
                   dataTableHeader: _dataTableHeader,
-                  dataTableData: _dataTableData,
+                  dataTableData: _dataTableData
+                      .where((e) => e.age <= 17 && e.age > 12)
+                      .toList(),
                 ),
                 TabulatedListViewData(
                   dataTableHeader: _dataTableHeader,
-                  dataTableData: _dataTableData,
+                  dataTableData:
+                      _dataTableData.where((e) => e.age > 17).toList(),
                 ),
               ],
             ),
@@ -167,27 +173,18 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
             return DataRow(
               cells: <DataCell>[
                 DataCell(
-                  // onTap: () {
-                  //   onCellTap(e.id);
-                  // },
                   Text(
                     e.firstName,
                     style: b ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
                   ),
                 ),
                 DataCell(
-                  // onTap: () {
-                  //   onCellTap(e.id);
-                  // },
                   Text(
                     e.lastName,
                     style: b ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
                   ),
                 ),
                 DataCell(
-                  // onTap: () {
-                  //   onCellTap(e.id);
-                  // },
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
