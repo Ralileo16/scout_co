@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class ParentDto {
   int id;
   String firstName;
@@ -6,7 +5,6 @@ class ParentDto {
   String? gender;
   String? phone;
   String? email;
-  String? notes;
 
   ParentDto({
     required this.id,
@@ -15,7 +13,6 @@ class ParentDto {
     this.gender,
     this.phone,
     this.email,
-    this.notes,
   });
 
   factory ParentDto.fromJson(Map<String, dynamic> json) {
@@ -27,7 +24,6 @@ class ParentDto {
         'gender': String gender,
         'phone': String phone,
         'email': String email,
-        'notes': String notes,
       } =>
         ParentDto(
           id: id,
@@ -36,9 +32,17 @@ class ParentDto {
           gender: gender,
           phone: phone,
           email: email,
-          notes: notes,
         ),
       _ => throw const FormatException('Failed to load parent.'),
     };
   }
+
+  Map<String, dynamic> toJson() => {
+        if (id != 0) 'id': id,
+        'firstName': firstName,
+        'lastName': lastName,
+        'gender': gender,
+        'phone': phone,
+        'email': email,
+      };
 }

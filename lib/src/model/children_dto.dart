@@ -1,12 +1,13 @@
 import 'package:age_calculator/age_calculator.dart';
 import 'package:scout_co/src/model/parent_dto.dart';
+import 'package:intl/intl.dart';
 
 class ChildrenDto {
   int id;
-  String firstName;
-  String lastName;
-  DateTime dateOfBirth;
-  String? gender;
+  String firstName; //
+  String lastName; //
+  DateTime dateOfBirth; //
+  String? gender; //
   String address;
   String city;
   String province;
@@ -55,17 +56,17 @@ class ChildrenDto {
         'firstName': String firstName,
         'lastName': String lastName,
         'dateOfBirth': String dateOfBirth,
-        'gender': String gender,
+        'gender': String? gender,
         'address': String address,
         'city': String city,
         'province': String province,
         'postalCode': String postalCode,
-        'phone': String phone,
-        'email': String email,
+        'phone': String? phone,
+        'email': String? email,
         'consentImage': bool consentImage,
-        'notes': String notes,
-        'fkParent1': int fkParent1,
-        'fkParent2': int fkParent2,
+        'notes': String? notes,
+        'fkParent1': int? fkParent1,
+        'fkParent2': int? fkParent2,
         'dateRegistration': String dateRegistration,
         'datePaid': String? datePaid,
         'isPaid': bool isPaid,
@@ -86,8 +87,12 @@ class ChildrenDto {
           notes: notes,
           fkParent1: fkParent1,
           fkParent2: fkParent2,
-          parentDto1: ParentDto.fromJson(json['fkParent1Navigation']),
-          parentDto2: ParentDto.fromJson(json['fkParent2Navigation']),
+          parentDto1: json['fkParent1Navigation'] == null
+              ? null
+              : ParentDto.fromJson(json['fkParent1Navigation']),
+          parentDto2: json['fkParent2Navigation'] == null
+              ? null
+              : ParentDto.fromJson(json['fkParent2Navigation']),
           dateRegistration: DateTime.parse(dateRegistration),
           datePaid: datePaid != null ? DateTime.parse(datePaid) : null,
           isPaid: isPaid,
@@ -95,4 +100,27 @@ class ChildrenDto {
       _ => throw const FormatException('Failed to load children.'),
     };
   }
+
+  Map<String, dynamic> toJson() => {
+        if (id != 0) 'id': id,
+        'firstName': firstName,
+        'lastName': lastName,
+        'dateOfBirth': DateFormat('yyyy-MM-dd').format(dateOfBirth),
+        'gender': gender,
+        'address': address,
+        'city': city,
+        'province': province,
+        'postalCode': postalCode,
+        'phone': phone,
+        'email': email,
+        'consentImage': consentImage,
+        'notes': notes,
+        'fkParent1': fkParent1,
+        'fkParent2': fkParent2,
+        'fkParent1Navigation': parentDto1,
+        'fkParent2Navigation': parentDto2,
+        'dateRegistration': DateFormat('yyyy-MM-dd').format(dateRegistration),
+        'datePaid': datePaid,
+        'isPaid': isPaid,
+      };
 }

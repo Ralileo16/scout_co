@@ -77,7 +77,9 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
                     parentDto: childrenDto.parentDto2,
                   ),
                 ),
-                const ChildrenViewFormButtons()
+                ChildrenViewFormButtons(
+                  childrenDto: childrenDto,
+                )
               ],
             ),
           );
@@ -129,11 +131,19 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
       TextEditingController();
   final TextEditingController _textEditingControllerGender =
       TextEditingController();
+  final TextEditingController _textEditingControllerProvince =
+      TextEditingController();
   final TextEditingController _textEditingControllerDateOfBirth =
       TextEditingController();
   final TextEditingController _textEditingControllerAge =
       TextEditingController();
   final TextEditingController _textEditingControllerNotes =
+      TextEditingController();
+  final TextEditingController _textEditingControllerAddress =
+      TextEditingController();
+  final TextEditingController _textEditingControllerCity =
+      TextEditingController();
+  final TextEditingController _textEditingControllerPostalCode =
       TextEditingController();
 
   @override
@@ -148,6 +158,10 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
           DateFormat('yyyy-MM-dd').format(_childrenDto.dateOfBirth);
       _textEditingControllerAge.text = _childrenDto.age.toString();
       _textEditingControllerNotes.text = _childrenDto.notes ?? "";
+      _textEditingControllerProvince.text = _childrenDto.province;
+      _textEditingControllerAddress.text = _childrenDto.address;
+      _textEditingControllerCity.text = _childrenDto.city;
+      _textEditingControllerPostalCode.text = _childrenDto.postalCode;
     }
     return Column(
       children: [
@@ -160,6 +174,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.firstName = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerFirstName,
                   decoration: const InputDecoration(
@@ -173,6 +190,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.lastName = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerLastName,
                   decoration: const InputDecoration(
@@ -190,6 +210,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.phone = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerPhone,
                   decoration: const InputDecoration(
@@ -203,6 +226,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.email = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerEmail,
                   decoration: const InputDecoration(
@@ -218,24 +244,14 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
           direction: Axis.horizontal,
           children: [
             Expanded(
-              flex: 7,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextFormField(
-                  enabled: canEdit,
-                  controller: _textEditingControllerGender,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Gender',
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
               flex: 5,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.dateOfBirth =
+                        DateTime.tryParse(text) ?? DateTime.now();
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerDateOfBirth,
                   decoration: const InputDecoration(
@@ -259,15 +275,108 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                 ),
               ),
             ),
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.gender = text;
+                  },
+                  enabled: canEdit,
+                  controller: _textEditingControllerGender,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Gender',
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.province = text;
+                  },
+                  enabled: canEdit,
+                  controller: _textEditingControllerProvince,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'State',
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Flex(
+          direction: Axis.horizontal,
+          children: [
+            Expanded(
+              flex: 7,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.address = text;
+                  },
+                  enabled: canEdit,
+                  controller: _textEditingControllerAddress,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Address',
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.city = text;
+                  },
+                  enabled: canEdit,
+                  controller: _textEditingControllerCity,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'City',
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  onChanged: (String text) {
+                    _childrenDto!.postalCode = text;
+                  },
+                  enabled: canEdit,
+                  controller: _textEditingControllerPostalCode,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Postal Code',
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextFormField(
+            onChanged: (String text) {
+              _childrenDto!.notes = text;
+            },
             enabled: canEdit,
             controller: _textEditingControllerNotes,
             keyboardType: TextInputType.multiline,
-            maxLines: 5,
+            maxLines: 3,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Notes',
@@ -309,7 +418,6 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
       _textEditingControllerParentEmail.text =
           _parentDto.email ?? "Not provided";
     }
-
     return Column(
       children: [
         const SizedBox(
@@ -321,6 +429,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _parentDto!.firstName = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerParentFirstName,
                   decoration: const InputDecoration(
@@ -334,6 +445,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _parentDto!.lastName = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerParentLastName,
                   decoration: const InputDecoration(
@@ -351,6 +465,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _parentDto!.phone = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerParentPhone,
                   decoration: const InputDecoration(
@@ -364,6 +481,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  onChanged: (String text) {
+                    _parentDto!.email = text;
+                  },
                   enabled: canEdit,
                   controller: _textEditingControllerParentEmail,
                   decoration: const InputDecoration(
@@ -384,7 +504,10 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
 class ChildrenViewFormButtons extends StatelessWidget {
   const ChildrenViewFormButtons({
     super.key,
+    this.childrenDto,
   });
+
+  final ChildrenDto? childrenDto;
 
   @override
   Widget build(BuildContext context) {
@@ -399,7 +522,7 @@ class ChildrenViewFormButtons extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () {
                 final childrenDtoCubit = context.read<ChildrenViewCubit>();
-                childrenDtoCubit.getAllChildrenDto();
+                childrenDtoCubit.onAddNewPressed();
               },
               child: const Text('Add new'),
             ),
@@ -424,7 +547,10 @@ class ChildrenViewFormButtons extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
               onPressed: () {
-                debugPrint('Received click');
+                final childrenDtoCubit = context.read<ChildrenViewCubit>();
+                if (childrenDto != null) {
+                  childrenDtoCubit.onSavePressed(childrenDto!);
+                }
               },
               child: const Text('Save'),
             ),

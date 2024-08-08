@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:scout_co/src/api_url.dart';
@@ -27,6 +28,26 @@ class ChildrenDtoRepository {
     } else {
       throw Exception('Failed to fetch children.');
     }
+  }
+
+  Future<void> putChildrenDto(ChildrenDto childrenDto) async {
+    await http.put(Uri.parse('${ApiUrl.children}${childrenDto.id}'),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(childrenDto.toJson()));
+  }
+
+  Future<void> postChildrenDto(ChildrenDto childrenDto) async {
+    debugPrint(jsonEncode(childrenDto.toJson()));
+    final response = await http.post(Uri.parse(ApiUrl.children),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(childrenDto.toJson()));
+    debugPrint('${response.statusCode} : ${response.reasonPhrase}');
   }
 }
 
