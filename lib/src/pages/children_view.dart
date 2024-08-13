@@ -19,7 +19,7 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
   late TabController _tabController;
 
   final List<String> _tabTitles = [
-    "Castor",
+    "Castors",
     "Louveteaux",
     "Aventuriers",
     "Routiers",

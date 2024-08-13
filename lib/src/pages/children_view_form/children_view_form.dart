@@ -5,6 +5,7 @@ import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/parent_dto.dart';
 import 'package:scout_co/src/utils/card_header_outline.dart';
 import 'package:intl/intl.dart';
+import 'package:scout_co/src/utils/pdf_generator.dart';
 
 //Form
 class ChildrenViewForm extends StatefulWidget {
@@ -501,7 +502,7 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
 }
 
 //Form buttons
-class ChildrenViewFormButtons extends StatelessWidget {
+class ChildrenViewFormButtons extends StatefulWidget {
   const ChildrenViewFormButtons({
     super.key,
     this.childrenDto,
@@ -509,6 +510,12 @@ class ChildrenViewFormButtons extends StatelessWidget {
 
   final ChildrenDto? childrenDto;
 
+  @override
+  State<ChildrenViewFormButtons> createState() =>
+      _ChildrenViewFormButtonsState();
+}
+
+class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
   @override
   Widget build(BuildContext context) {
     return Flex(
@@ -548,8 +555,8 @@ class ChildrenViewFormButtons extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () {
                 final childrenDtoCubit = context.read<ChildrenViewCubit>();
-                if (childrenDto != null) {
-                  childrenDtoCubit.onSavePressed(childrenDto!);
+                if (widget.childrenDto != null) {
+                  childrenDtoCubit.onSavePressed(widget.childrenDto!);
                 }
               },
               child: const Text('Save'),
@@ -573,12 +580,19 @@ class ChildrenViewFormButtons extends StatelessWidget {
           flex: 3,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              onPressed: () {
-                debugPrint('Received click');
-              },
-              child: const Icon(Icons.more_horiz),
-            ),
+            child: widget.childrenDto?.id == 0 || widget.childrenDto == null
+                ? const OutlinedButton(
+                    onPressed: null,
+                    child: Text('Fiche Santé'),
+                  )
+                : PDFHealthSheet(childrenDto: widget.childrenDto!),
+          ),
+        ),
+        const Expanded(
+          flex: 3,
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: PDFAttendance(),
           ),
         ),
       ],
