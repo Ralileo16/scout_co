@@ -64,157 +64,178 @@ class PDFHealthSheetState extends State<PDFHealthSheet> {
                   ),
                 ),
               ),
-              pw.Row(
-                children: [
-                  pw.Expanded(
-                    flex: 3,
-                    child: pw.Text('Nom Complet:'),
-                  ),
-                  pw.Expanded(
-                    flex: 7,
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+              pw.Padding(
+                padding: const pw.EdgeInsets.only(bottom: 16),
+                child: pw.Row(
+                  children: [
+                    pw.Expanded(
+                      flex: 2,
+                      child: pw.Text('Nom Complet:'),
+                    ),
+                    pw.Expanded(
+                      flex: 8,
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          name: 'FullName',
+                          value:
+                              '${widget.childrenDto.firstName} ${widget.childrenDto.lastName}',
+                          defaultValue: 'Error loading FullName',
                         ),
                       ),
-                      child: pw.TextField(
-                        name: 'FullName',
-                        value:
-                            '${widget.childrenDto.firstName} ${widget.childrenDto.lastName}',
-                        defaultValue: 'Error loading FullName',
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              pw.Row(
-                children: [
-                  pw.Expanded(
-                    flex: 6,
-                    child: pw.Text('Date de Naissance:'),
-                  ),
-                  pw.Expanded(
-                    flex: 8,
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+              pw.Padding(
+                padding: const pw.EdgeInsets.only(bottom: 16),
+                child: pw.Row(
+                  children: [
+                    pw.Expanded(
+                      flex: 5,
+                      child: pw.Text('Date de Naissance:'),
+                    ),
+                    pw.Expanded(
+                      flex: 8,
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          name: 'DateOfBirth',
+                          value: DateFormat('yyyy-MM-dd')
+                              .format(widget.childrenDto.dateOfBirth),
+                          defaultValue: 'Error loading DateOfBirth',
                         ),
                       ),
-                      child: pw.TextField(
-                        name: 'DateOfBirth',
-                        value: DateFormat('yyyy-MM-dd')
-                            .format(widget.childrenDto.dateOfBirth),
-                        defaultValue: 'Error loading DateOfBirth',
-                      ),
                     ),
-                  ),
-                  pw.Expanded(
-                    flex: 3,
-                    child: pw.Text('Sexe:'),
-                  ),
-                  pw.Expanded(
-                    flex: 3,
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+                    pw.SizedBox(
+                      width: 8,
+                    ),
+                    pw.Expanded(
+                      flex: 3,
+                      child: pw.Text('Sexe: '),
+                    ),
+                    pw.Expanded(
+                      flex: 3,
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          name: 'Gender',
+                          value: widget.childrenDto.gender,
+                          defaultValue: 'Error loading Gender',
                         ),
                       ),
-                      child: pw.TextField(
-                        name: 'Gender',
-                        value: widget.childrenDto.gender,
-                        defaultValue: 'Error loading Gender',
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              pw.Row(
-                children: [
-                  pw.Expanded(
-                    flex: 6,
-                    child: pw.Text('Adresse:'),
-                  ),
-                  pw.Expanded(
-                    flex: 8,
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+              pw.Padding(
+                padding: const pw.EdgeInsets.only(bottom: 16),
+                child: pw.Row(
+                  children: [
+                    pw.Expanded(
+                      flex: 5,
+                      child: pw.Text('Adresse:'),
+                    ),
+                    pw.Expanded(
+                      flex: 8,
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          name: 'Address',
+                          value:
+                              '${widget.childrenDto.address}, ${widget.childrenDto.city}, ${widget.childrenDto.province}',
+                          defaultValue: 'Error loading Address',
                         ),
                       ),
-                      child: pw.TextField(
-                        name: 'Address',
-                        value:
-                            '${widget.childrenDto.address}, ${widget.childrenDto.city}, ${widget.childrenDto.province}',
-                        defaultValue: 'Error loading Address',
-                      ),
                     ),
-                  ),
-                  pw.Expanded(
-                    flex: 3,
-                    child: pw.Text('Code Postal:'),
-                  ),
-                  pw.Expanded(
-                    flex: 3,
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+                    pw.SizedBox(
+                      width: 8,
+                    ),
+                    pw.Expanded(
+                      flex: 3,
+                      child: pw.Text('Code Postal:'),
+                    ),
+                    pw.Expanded(
+                      flex: 3,
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          name: 'PostalCode',
+                          value: widget.childrenDto.postalCode,
+                          defaultValue: 'Error loading PostalCode',
                         ),
                       ),
-                      child: pw.TextField(
-                        name: 'PostalCode',
-                        value: widget.childrenDto.postalCode,
-                        defaultValue: 'Error loading PostalCode',
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              pw.Row(
-                children: [
-                  pw.Expanded(
-                    flex: 3,
-                    child: pw.Text('Téléphone:'),
-                  ),
-                  pw.Expanded(
-                    flex: 5,
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+              pw.Padding(
+                padding: const pw.EdgeInsets.only(bottom: 16),
+                child: pw.Row(
+                  children: [
+                    pw.Expanded(
+                      flex: 3,
+                      child: pw.Text('Téléphone:'),
+                    ),
+                    pw.Expanded(
+                      flex: 5,
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          name: 'Phone',
+                          value: widget.childrenDto.phone,
+                          defaultValue: 'Error loading Phone',
                         ),
                       ),
-                      child: pw.TextField(
-                        name: 'Phone',
-                        value: widget.childrenDto.phone,
-                        defaultValue: 'Error loading Phone',
-                      ),
                     ),
-                  ),
-                  pw.Expanded(
-                    flex: 3,
-                    child: pw.Text('E-mail:'),
-                  ),
-                  pw.Expanded(
-                    flex: 5,
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+                    pw.SizedBox(
+                      width: 8,
+                    ),
+                    pw.Expanded(
+                      flex: 2,
+                      child: pw.Text('E-mail:'),
+                    ),
+                    pw.Expanded(
+                      flex: 7,
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          name: 'Email',
+                          value: widget.childrenDto.email,
+                          defaultValue: 'Error loading Email',
                         ),
                       ),
-                      child: pw.TextField(
-                        name: 'Email',
-                        value: widget.childrenDto.email,
-                        defaultValue: 'Error loading Email',
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               pw.SizedBox(
                 height: 42,
@@ -228,24 +249,27 @@ class PDFHealthSheetState extends State<PDFHealthSheet> {
                   ),
                 ),
               ),
-              pw.Row(
-                children: [
-                  pw.Expanded(
-                    child: pw.Container(
-                      decoration: pw.BoxDecoration(
-                        border: pw.Border.all(
-                          color: const PdfColor.fromInt(0xFF000000),
+              pw.Padding(
+                padding: const pw.EdgeInsets.only(bottom: 16),
+                child: pw.Row(
+                  children: [
+                    pw.Expanded(
+                      child: pw.Container(
+                        decoration: pw.BoxDecoration(
+                          border: pw.Border.all(
+                            color: const PdfColor.fromInt(0xFF000000),
+                          ),
+                        ),
+                        child: pw.TextField(
+                          height: 112,
+                          name: 'Notes',
+                          value: widget.childrenDto.notes,
+                          defaultValue: 'Error loading Notes',
                         ),
                       ),
-                      child: pw.TextField(
-                        height: 112,
-                        name: 'Notes',
-                        value: widget.childrenDto.notes,
-                        defaultValue: 'Error loading Notes',
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               pw.SizedBox(
                 height: 42,
@@ -272,6 +296,9 @@ class PDFHealthSheetState extends State<PDFHealthSheet> {
                       ),
                     ),
                   ),
+                  pw.SizedBox(
+                    width: 8,
+                  ),
                   pw.Expanded(
                     child: pw.Text(
                       "Parent 2",
@@ -290,176 +317,213 @@ class PDFHealthSheetState extends State<PDFHealthSheet> {
                   pw.Expanded(
                     child: pw.Column(
                       children: [
-                        pw.Container(
-                          child: pw.Row(
-                            children: [
-                              pw.Expanded(
-                                flex: 3,
-                                child: pw.Text('Nom complet:'),
-                              ),
-                              pw.Expanded(
-                                flex: 5,
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border: pw.Border.all(
-                                      color: const PdfColor.fromInt(0xFF000000),
+                        pw.Padding(
+                          padding: const pw.EdgeInsets.only(bottom: 16),
+                          child: pw.Container(
+                            child: pw.Row(
+                              children: [
+                                pw.Expanded(
+                                  flex: 3,
+                                  child: pw.Text('Nom complet:'),
+                                ),
+                                pw.Expanded(
+                                  flex: 5,
+                                  child: pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.TextField(
+                                      name: 'FullNameParent1',
+                                      value: widget.childrenDto.parentDto1 !=
+                                              null
+                                          ? '${widget.childrenDto.parentDto1!.firstName} ${widget.childrenDto.parentDto1!.lastName}'
+                                          : '',
+                                      defaultValue:
+                                          'Error loading FullNameParent1',
                                     ),
                                   ),
-                                  child: pw.TextField(
-                                    name: 'FullNameParent1',
-                                    value: widget.childrenDto.parentDto1 != null
-                                        ? '${widget.childrenDto.parentDto1!.firstName} ${widget.childrenDto.parentDto1!.lastName}'
-                                        : '',
-                                    defaultValue:
-                                        'Error loading FullNameParent1',
-                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        pw.Container(
-                          child: pw.Row(
-                            children: [
-                              pw.Expanded(
-                                flex: 3,
-                                child: pw.Text('Téléphone:'),
-                              ),
-                              pw.Expanded(
-                                flex: 5,
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border: pw.Border.all(
-                                      color: const PdfColor.fromInt(0xFF000000),
+                        pw.Padding(
+                          padding: const pw.EdgeInsets.only(bottom: 16),
+                          child: pw.Container(
+                            child: pw.Row(
+                              children: [
+                                pw.Expanded(
+                                  flex: 3,
+                                  child: pw.Text('Téléphone:'),
+                                ),
+                                pw.Expanded(
+                                  flex: 5,
+                                  child: pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.TextField(
+                                      name: 'PhoneParent1',
+                                      value: widget.childrenDto.parentDto1 !=
+                                              null
+                                          ? widget.childrenDto.parentDto1!.phone
+                                          : '',
+                                      defaultValue:
+                                          'Error loading PhoneParent1',
                                     ),
                                   ),
-                                  child: pw.TextField(
-                                    name: 'PhoneParent1',
-                                    value: widget.childrenDto.parentDto1 != null
-                                        ? widget.childrenDto.parentDto1!.phone
-                                        : '',
-                                    defaultValue: 'Error loading PhoneParent1',
-                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        pw.Container(
-                          child: pw.Row(
-                            children: [
-                              pw.Expanded(
-                                flex: 3,
-                                child: pw.Text('Email:'),
-                              ),
-                              pw.Expanded(
-                                flex: 5,
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border: pw.Border.all(
-                                      color: const PdfColor.fromInt(0xFF000000),
+                        pw.Padding(
+                          padding: const pw.EdgeInsets.only(bottom: 16),
+                          child: pw.Container(
+                            child: pw.Row(
+                              children: [
+                                pw.Expanded(
+                                  flex: 3,
+                                  child: pw.Text('Email:'),
+                                ),
+                                pw.Expanded(
+                                  flex: 5,
+                                  child: pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.TextField(
+                                      height: 42,
+                                      name: 'EmailParent1',
+                                      value: widget.childrenDto.parentDto1 !=
+                                              null
+                                          ? widget.childrenDto.parentDto1!.email
+                                          : '',
+                                      defaultValue:
+                                          'Error loading EmailParent1',
                                     ),
                                   ),
-                                  child: pw.TextField(
-                                    height: 42,
-                                    name: 'EmailParent1',
-                                    value: widget.childrenDto.parentDto1 != null
-                                        ? widget.childrenDto.parentDto1!.email
-                                        : '',
-                                    defaultValue: 'Error loading EmailParent1',
-                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
+                  pw.SizedBox(
+                    width: 8,
+                  ),
                   pw.Expanded(
                     child: pw.Column(
                       children: [
-                        pw.Container(
-                          child: pw.Row(
-                            children: [
-                              pw.Expanded(
-                                flex: 3,
-                                child: pw.Text('Nom complet:'),
-                              ),
-                              pw.Expanded(
-                                flex: 5,
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border: pw.Border.all(
-                                      color: const PdfColor.fromInt(0xFF000000),
+                        pw.Padding(
+                          padding: const pw.EdgeInsets.only(bottom: 16),
+                          child: pw.Container(
+                            child: pw.Row(
+                              children: [
+                                pw.Expanded(
+                                  flex: 3,
+                                  child: pw.Text('Nom complet:'),
+                                ),
+                                pw.Expanded(
+                                  flex: 5,
+                                  child: pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.TextField(
+                                      name: 'FullNameParent2',
+                                      value: widget.childrenDto.parentDto2 !=
+                                              null
+                                          ? '${widget.childrenDto.parentDto2!.firstName} ${widget.childrenDto.parentDto2!.lastName}'
+                                          : '',
+                                      defaultValue:
+                                          'Error loading FullNameParent2',
                                     ),
                                   ),
-                                  child: pw.TextField(
-                                    name: 'FullNameParent2',
-                                    value: widget.childrenDto.parentDto2 != null
-                                        ? '${widget.childrenDto.parentDto2!.firstName} ${widget.childrenDto.parentDto2!.lastName}'
-                                        : '',
-                                    defaultValue:
-                                        'Error loading FullNameParent2',
-                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        pw.Container(
-                          child: pw.Row(
-                            children: [
-                              pw.Expanded(
-                                flex: 3,
-                                child: pw.Text('Téléphone:'),
-                              ),
-                              pw.Expanded(
-                                flex: 5,
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border: pw.Border.all(
-                                      color: const PdfColor.fromInt(0xFF000000),
+                        pw.Padding(
+                          padding: const pw.EdgeInsets.only(bottom: 16),
+                          child: pw.Container(
+                            child: pw.Row(
+                              children: [
+                                pw.Expanded(
+                                  flex: 3,
+                                  child: pw.Text('Téléphone:'),
+                                ),
+                                pw.Expanded(
+                                  flex: 5,
+                                  child: pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.TextField(
+                                      name: 'PhoneParent2',
+                                      value: widget.childrenDto.parentDto2 !=
+                                              null
+                                          ? widget.childrenDto.parentDto2!.phone
+                                          : '',
+                                      defaultValue:
+                                          'Error loading PhoneParent2',
                                     ),
                                   ),
-                                  child: pw.TextField(
-                                    name: 'PhoneParent2',
-                                    value: widget.childrenDto.parentDto2 != null
-                                        ? widget.childrenDto.parentDto2!.phone
-                                        : '',
-                                    defaultValue: 'Error loading PhoneParent2',
-                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        pw.Container(
-                          child: pw.Row(
-                            children: [
-                              pw.Expanded(
-                                flex: 3,
-                                child: pw.Text('Email:'),
-                              ),
-                              pw.Expanded(
-                                flex: 5,
-                                child: pw.Container(
-                                  decoration: pw.BoxDecoration(
-                                    border: pw.Border.all(
-                                      color: const PdfColor.fromInt(0xFF000000),
+                        pw.Padding(
+                          padding: const pw.EdgeInsets.only(bottom: 16),
+                          child: pw.Container(
+                            child: pw.Row(
+                              children: [
+                                pw.Expanded(
+                                  flex: 3,
+                                  child: pw.Text('Email:'),
+                                ),
+                                pw.Expanded(
+                                  flex: 5,
+                                  child: pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.TextField(
+                                      height: 42,
+                                      name: 'EmailParent2',
+                                      value: widget.childrenDto.parentDto2 !=
+                                              null
+                                          ? widget.childrenDto.parentDto2!.email
+                                          : '',
+                                      defaultValue:
+                                          'Error loading EmailParent2',
                                     ),
                                   ),
-                                  child: pw.TextField(
-                                    height: 42,
-                                    name: 'EmailParent2',
-                                    value: widget.childrenDto.parentDto2 != null
-                                        ? widget.childrenDto.parentDto2!.email
-                                        : '',
-                                    defaultValue: 'Error loading EmailParent2',
-                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -564,12 +628,62 @@ class PDFAttendanceState extends State<PDFAttendance> {
                 child: pw.Column(
                   children: childrenDtoList.map(
                     (ChildrenDto c) {
-                      return pw.Row(
-                        children: [
-                          pw.Text('${c.firstName} ${c.lastName}'),
-                          pw.Text('AM:'),
-                          pw.Text('PM:'),
-                        ],
+                      return pw.Padding(
+                        padding: const pw.EdgeInsets.all(8.0),
+                        child: pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('${c.firstName} ${c.lastName}'),
+                            pw.Container(
+                              child: pw.Row(
+                                children: [
+                                  pw.Text('AM: '),
+                                  pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.Checkbox(
+                                      name: '${c.id}AM',
+                                      value: false,
+                                    ),
+                                  ),
+                                  pw.Text(' PM: '),
+                                  pw.Container(
+                                    decoration: pw.BoxDecoration(
+                                      border: pw.Border.all(
+                                        color:
+                                            const PdfColor.fromInt(0xFF000000),
+                                      ),
+                                    ),
+                                    child: pw.Checkbox(
+                                      name: '${c.id}PM',
+                                      value: false,
+                                    ),
+                                  ),
+                                  pw.Padding(
+                                    padding: const pw.EdgeInsets.only(left: 8),
+                                    child: pw.Container(
+                                      decoration: pw.BoxDecoration(
+                                        border: pw.Border.all(
+                                          color: const PdfColor.fromInt(
+                                              0xFF000000),
+                                        ),
+                                      ),
+                                      child: pw.TextField(
+                                        height: 42,
+                                        width: 225,
+                                        name: '${c.id}Notes',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     },
                   ).toList(),
@@ -658,7 +772,30 @@ class PDFAttendanceState extends State<PDFAttendance> {
                       final childrenDtoRepository = ChildrenDtoRepository();
                       final childrenDtoList =
                           await childrenDtoRepository.fetchAllChildrenDto();
-                      generatePDF(childrenDtoList);
+                      switch (dropdownValue) {
+                        case 'Castors':
+                          generatePDF(childrenDtoList
+                              .where((e) => e.age <= 8)
+                              .toList());
+                          break;
+                        case 'Louveteaux':
+                          generatePDF(childrenDtoList
+                              .where((e) => e.age <= 12 && e.age > 8)
+                              .toList());
+                          break;
+                        case 'Aventuriers':
+                          generatePDF(childrenDtoList
+                              .where((e) => e.age <= 17 && e.age > 12)
+                              .toList());
+                          break;
+                        case 'Routiers':
+                          generatePDF(childrenDtoList
+                              .where((e) => e.age > 17)
+                              .toList());
+                          break;
+                        default:
+                          generatePDF(childrenDtoList);
+                      }
                     },
                     child: const Text('OK'),
                   ),
