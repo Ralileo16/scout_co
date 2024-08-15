@@ -533,7 +533,10 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                   final childrenDtoCubit = context.read<ChildrenViewCubit>();
                   childrenDtoCubit.onAddNewPressed();
                 },
-                child: const Icon(Icons.add),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.blue,
+                ),
               ),
             ),
           ),
@@ -549,7 +552,10 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                   final childrenDtoCubit = context.read<ChildrenViewCubit>();
                   childrenDtoCubit.onEditPressed();
                 },
-                child: const Icon(Icons.edit),
+                child: const Icon(
+                  Icons.edit,
+                  color: Colors.yellow,
+                ),
               ),
             ),
           ),
@@ -567,7 +573,10 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                     childrenDtoCubit.onSavePressed(widget.childrenDto!);
                   }
                 },
-                child: const Icon(Icons.save),
+                child: const Icon(
+                  Icons.save,
+                  color: Colors.green,
+                ),
               ),
             ),
           ),
@@ -583,7 +592,10 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                   final childrenDtoCubit = context.read<ChildrenViewCubit>();
                   childrenDtoCubit.onCancelPressed();
                 },
-                child: const Icon(Icons.close),
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.red,
+                ),
               ),
             ),
           ),
