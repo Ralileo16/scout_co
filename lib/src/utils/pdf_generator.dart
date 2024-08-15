@@ -565,7 +565,7 @@ class PDFHealthSheetState extends State<PDFHealthSheet> {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: generatePDF,
-      child: const Icon(Icons.more_horiz),
+      child: const Icon(Icons.description),
     );
   }
 }
@@ -721,7 +721,7 @@ class PDFAttendanceState extends State<PDFAttendance> {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      child: const Text('Attendance'),
+      child: const Icon(Icons.list),
       onPressed: () {
         const List<String> category = <String>[
           'Castors',

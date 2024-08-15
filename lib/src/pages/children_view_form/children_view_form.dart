@@ -523,76 +523,97 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded(
-          flex: 7,
+          flex: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              onPressed: () {
-                final childrenDtoCubit = context.read<ChildrenViewCubit>();
-                childrenDtoCubit.onAddNewPressed();
-              },
-              child: const Text('Add new'),
+            child: Tooltip(
+              message: 'Add New',
+              child: OutlinedButton(
+                onPressed: () {
+                  final childrenDtoCubit = context.read<ChildrenViewCubit>();
+                  childrenDtoCubit.onAddNewPressed();
+                },
+                child: const Icon(Icons.add),
+              ),
             ),
           ),
         ),
         Expanded(
-          flex: 7,
+          flex: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              onPressed: () {
-                final childrenDtoCubit = context.read<ChildrenViewCubit>();
-                childrenDtoCubit.onEditPressed();
-              },
-              child: const Text('Edit'),
+            child: Tooltip(
+              message: 'Edit',
+              child: OutlinedButton(
+                onPressed: () {
+                  final childrenDtoCubit = context.read<ChildrenViewCubit>();
+                  childrenDtoCubit.onEditPressed();
+                },
+                child: const Icon(Icons.edit),
+              ),
             ),
           ),
         ),
         Expanded(
-          flex: 7,
+          flex: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              onPressed: () {
-                final childrenDtoCubit = context.read<ChildrenViewCubit>();
-                if (widget.childrenDto != null) {
-                  childrenDtoCubit.onSavePressed(widget.childrenDto!);
-                }
-              },
-              child: const Text('Save'),
+            child: Tooltip(
+              message: 'Save',
+              child: OutlinedButton(
+                onPressed: () {
+                  final childrenDtoCubit = context.read<ChildrenViewCubit>();
+                  if (widget.childrenDto != null) {
+                    childrenDtoCubit.onSavePressed(widget.childrenDto!);
+                  }
+                },
+                child: const Icon(Icons.save),
+              ),
             ),
           ),
         ),
         Expanded(
-          flex: 7,
+          flex: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              onPressed: () {
-                final childrenDtoCubit = context.read<ChildrenViewCubit>();
-                childrenDtoCubit.onCancelPressed();
-              },
-              child: const Text('Cancel'),
+            child: Tooltip(
+              message: 'Cancel',
+              child: OutlinedButton(
+                onPressed: () {
+                  final childrenDtoCubit = context.read<ChildrenViewCubit>();
+                  childrenDtoCubit.onCancelPressed();
+                },
+                child: const Icon(Icons.close),
+              ),
             ),
           ),
         ),
         Expanded(
-          flex: 3,
+          flex: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: widget.childrenDto?.id == 0 || widget.childrenDto == null
-                ? const OutlinedButton(
-                    onPressed: null,
-                    child: Text('Fiche Santé'),
+                ? const Tooltip(
+                    message: 'Health Sheet',
+                    child: OutlinedButton(
+                      onPressed: null,
+                      child: Icon(Icons.description),
+                    ),
                   )
-                : PDFHealthSheet(childrenDto: widget.childrenDto!),
+                : Tooltip(
+                    message: 'Health Sheet',
+                    child: PDFHealthSheet(childrenDto: widget.childrenDto!),
+                  ),
           ),
         ),
         const Expanded(
-          flex: 3,
+          flex: 5,
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: PDFAttendance(),
+            child: Tooltip(
+              message: 'Attendance Sheet',
+              child: PDFAttendance(),
+            ),
           ),
         ),
       ],
