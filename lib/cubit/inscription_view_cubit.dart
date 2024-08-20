@@ -4,32 +4,32 @@ import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/children_dto_repository.dart';
 import 'package:scout_co/src/model/parent_dto.dart';
 
-part 'children_view_state.dart';
+part 'inscription_view_state.dart';
 
-class ChildrenViewCubit extends Cubit<ChildrenViewState> {
+class InscriptionViewCubit extends Cubit<InscriptionViewState> {
   final ChildrenDtoRepository _childrenDtoRepository;
   List<ChildrenDto> _childrenDtoList;
   ChildrenDto? _childrenDto;
 
-  ChildrenViewCubit(
+  InscriptionViewCubit(
       this._childrenDtoRepository, this._childrenDtoList, this._childrenDto)
-      : super(const ChildrenViewInitial());
+      : super(const InscriptionViewInitial());
 
   Future<void> getChildrenDto(int id) async {
     try {
       _childrenDto = await _childrenDtoRepository.fetchChildrenDto(id);
-      emit(ChildrenViewLoadedWithSelect(_childrenDtoList, _childrenDto!));
+      emit(InscriptionViewLoadedWithSelect(_childrenDtoList, _childrenDto!));
     } on NetworkException {
-      emit(const ChildrenViewError("Network Exception"));
+      emit(const InscriptionViewError("Network Exception"));
     }
   }
 
   Future<void> getAllChildrenDto() async {
     try {
       _childrenDtoList = await _childrenDtoRepository.fetchAllChildrenDto();
-      emit(ChildrenViewLoaded(_childrenDtoList));
+      emit(InscriptionViewLoaded(_childrenDtoList));
     } on NetworkException {
-      emit(const ChildrenViewError("Network Exception"));
+      emit(const InscriptionViewError("Network Exception"));
     }
   }
 
@@ -67,17 +67,17 @@ class ChildrenViewCubit extends Cubit<ChildrenViewState> {
         email: '',
       ),
       dateRegistration: DateTime.now(),
-      datePaid: DateTime.now(),
-      isPaid: true,
+      datePaid: null,
+      isPaid: false,
     );
     _childrenDto = blank;
-    emit(ChildrenViewLoadedWithSelectCanEdit(
+    emit(InscriptionViewLoadedWithSelectCanEdit(
         _childrenDtoList, _childrenDto!, true));
   }
 
   Future<void> onEditPressed() async {
     if (_childrenDto != null) {
-      emit(ChildrenViewLoadedWithSelectCanEdit(
+      emit(InscriptionViewLoadedWithSelectCanEdit(
           _childrenDtoList, _childrenDto!, true));
     }
   }
@@ -90,14 +90,25 @@ class ChildrenViewCubit extends Cubit<ChildrenViewState> {
         await _childrenDtoRepository.putChildrenDto(childrenDto);
       }
       _childrenDtoList = await _childrenDtoRepository.fetchAllChildrenDto();
-      emit(ChildrenViewLoadedWithSelect(_childrenDtoList, _childrenDto!));
+      emit(InscriptionViewLoadedWithSelect(_childrenDtoList, _childrenDto!));
     } on NetworkException {
-      emit(const ChildrenViewError("Network Exception"));
+      emit(const InscriptionViewError("Network Exception"));
     }
   }
 
   Future<void> onCancelPressed() async {
     _childrenDtoList = await _childrenDtoRepository.fetchAllChildrenDto();
-    emit(ChildrenViewLoaded(_childrenDtoList));
+    emit(InscriptionViewLoaded(_childrenDtoList));
+  }
+
+  Future<void> onPaidPressed(ChildrenDto childrenDto) async {
+    try {
+      childrenDto.isPaid = !childrenDto.isPaid;
+      await _childrenDtoRepository.putChildrenDto(childrenDto);
+      _childrenDtoList = await _childrenDtoRepository.fetchAllChildrenDto();
+      emit(InscriptionViewLoaded(_childrenDtoList));
+    } on NetworkException {
+      emit(const InscriptionViewError("Network Exception"));
+    }
   }
 }

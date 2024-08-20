@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:scout_co/cubit/children_view_cubit.dart';
+import 'package:scout_co/cubit/inscription_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/children_dto_repository.dart';
-import 'package:scout_co/src/utils/children_tabulated_list_view.dart';
-import 'children_view_form/children_view_form.dart';
+import 'package:scout_co/src/pages/inscription_view_form/inscription_view_form.dart';
+import 'package:scout_co/src/utils/inscription_tabulated_list_view.dart';
 
 //Snackbar + full Page
-class ChildrenViewPage extends StatefulWidget {
-  const ChildrenViewPage({super.key});
+class InscriptionViewPage extends StatefulWidget {
+  const InscriptionViewPage({super.key});
 
   @override
-  ChildrenViewPageState createState() => ChildrenViewPageState();
+  InscriptionViewPageState createState() => InscriptionViewPageState();
 }
 
-class ChildrenViewPageState extends State<ChildrenViewPage>
+class InscriptionViewPageState extends State<InscriptionViewPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   final List<String> _tabTitles = [
-    "Castors",
-    "Louveteaux",
-    "Aventuriers",
-    "Routiers",
+    "Not Paid",
+    "Paid",
   ];
 
   final List<String> _dataTableHeader = [
@@ -46,11 +44,12 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChildrenViewCubit(ChildrenDtoRepository(), [], null),
+      create: (context) =>
+          InscriptionViewCubit(ChildrenDtoRepository(), [], null),
       child: Scaffold(
-        body: BlocListener<ChildrenViewCubit, ChildrenViewState>(
+        body: BlocListener<InscriptionViewCubit, InscriptionViewState>(
           listener: (context, state) {
-            if (state is ChildrenViewError) {
+            if (state is InscriptionViewError) {
               String message = state.message;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -62,7 +61,7 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
               );
             }
           },
-          child: ChildrenView(
+          child: InscriptionView(
             tabController: _tabController,
             tabTitles: _tabTitles,
             dataTableHeader: _dataTableHeader,
@@ -74,8 +73,8 @@ class ChildrenViewPageState extends State<ChildrenViewPage>
 }
 
 //List + Form
-class ChildrenView extends StatelessWidget {
-  const ChildrenView({
+class InscriptionView extends StatelessWidget {
+  const InscriptionView({
     super.key,
     required TabController tabController,
     required List<String> tabTitles,
@@ -90,33 +89,9 @@ class ChildrenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChildrenViewCubit, ChildrenViewState>(
+    return BlocBuilder<InscriptionViewCubit, InscriptionViewState>(
       builder: (context, state) {
-        if (state is ChildrenViewLoaded) {
-          List<ChildrenDto> dataTableData =
-              state.childrenDtoList.where((c) => c.isPaid).toList();
-          return Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TabulatedListView(
-                    tabController: _tabController,
-                    tabTitles: _tabTitles,
-                    dataTableHeader: _dataTableHeader,
-                    dataTableData: dataTableData,
-                  ),
-                ),
-              ),
-              const VerticalDivider(),
-              const Expanded(
-                child: SingleChildScrollView(
-                  child: ChildrenViewForm(),
-                ),
-              ),
-            ],
-          );
-        } else if (state is ChildrenViewLoadedWithSelect) {
+        if (state is InscriptionViewLoaded) {
           List<ChildrenDto> dataTableData = state.childrenDtoList;
           return Row(
             children: [
@@ -134,12 +109,12 @@ class ChildrenView extends StatelessWidget {
               const VerticalDivider(),
               const Expanded(
                 child: SingleChildScrollView(
-                  child: ChildrenViewForm(),
+                  child: InscriptionViewForm(),
                 ),
               ),
             ],
           );
-        } else if (state is ChildrenViewLoadedWithSelectCanEdit) {
+        } else if (state is InscriptionViewLoadedWithSelect) {
           List<ChildrenDto> dataTableData = state.childrenDtoList;
           return Row(
             children: [
@@ -157,13 +132,36 @@ class ChildrenView extends StatelessWidget {
               const VerticalDivider(),
               const Expanded(
                 child: SingleChildScrollView(
-                  child: ChildrenViewForm(),
+                  child: InscriptionViewForm(),
+                ),
+              ),
+            ],
+          );
+        } else if (state is InscriptionViewLoadedWithSelectCanEdit) {
+          List<ChildrenDto> dataTableData = state.childrenDtoList;
+          return Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TabulatedListView(
+                    tabController: _tabController,
+                    tabTitles: _tabTitles,
+                    dataTableHeader: _dataTableHeader,
+                    dataTableData: dataTableData,
+                  ),
+                ),
+              ),
+              const VerticalDivider(),
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: InscriptionViewForm(),
                 ),
               ),
             ],
           );
         } else {
-          final childrenDtoCubit = context.read<ChildrenViewCubit>();
+          final childrenDtoCubit = context.read<InscriptionViewCubit>();
           childrenDtoCubit.getAllChildrenDto();
           return const Center(child: CircularProgressIndicator());
         }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:scout_co/src/pages/children_view.dart';
-import 'package:scout_co/src/pages/test_pages_2_3.dart';
+import 'package:scout_co/src/pages/inscription_view.dart';
+import 'package:scout_co/src/pages/test_pages_3.dart';
 import 'package:scout_co/src/utils/nav_destination.dart';
 
 class NavigationDrawerCustom extends StatefulWidget {
@@ -16,7 +17,11 @@ class NavigationDrawerCustomState extends State<NavigationDrawerCustom> {
 
   int screenIndex = 0;
 
-  var pages = [const ChildrenViewPage(), const PageTest2(), PageTest3()];
+  var pages = [
+    const ChildrenViewPage(),
+    const InscriptionViewPage(),
+    PageTest3()
+  ];
 
   void handleScreenChanged(int selectedScreen) {
     setState(() {

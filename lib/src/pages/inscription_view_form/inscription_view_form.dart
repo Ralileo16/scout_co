@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:scout_co/cubit/children_view_cubit.dart';
+import 'package:scout_co/cubit/inscription_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/parent_dto.dart';
 import 'package:scout_co/src/utils/card_header_outline.dart';
 import 'package:intl/intl.dart';
-import 'package:scout_co/src/utils/pdf_generator.dart';
 
 //Form
-class ChildrenViewForm extends StatefulWidget {
-  const ChildrenViewForm({
+class InscriptionViewForm extends StatefulWidget {
+  const InscriptionViewForm({
     super.key,
   });
 
   @override
-  State<ChildrenViewForm> createState() => _ChildrenViewFormState();
+  State<InscriptionViewForm> createState() => _InscriptionViewFormState();
 }
 
-class _ChildrenViewFormState extends State<ChildrenViewForm> {
+class _InscriptionViewFormState extends State<InscriptionViewForm> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChildrenViewCubit, ChildrenViewState>(
+    return BlocBuilder<InscriptionViewCubit, InscriptionViewState>(
       builder: (context, state) {
-        if (state is ChildrenViewLoadedWithSelect) {
+        if (state is InscriptionViewLoadedWithSelect) {
           ChildrenDto childrenDto = state.childrenDto;
           return Form(
             child: Column(
@@ -30,29 +29,29 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
               children: <Widget>[
                 CardHeaderOutline(
                   title: 'Personal Informations',
-                  child: ChildrenViewChildInfoForm(
+                  child: InscriptionViewChildInfoForm(
                     childrenDto: childrenDto,
                   ),
                 ),
                 CardHeaderOutline(
                   title: 'Parent 1',
-                  child: ChildrenViewParentInfoForm(
+                  child: InscriptionViewParentInfoForm(
                     parentDto: childrenDto.parentDto1,
                   ),
                 ),
                 CardHeaderOutline(
                   title: 'Parent 2',
-                  child: ChildrenViewParentInfoForm(
+                  child: InscriptionViewParentInfoForm(
                     parentDto: childrenDto.parentDto2,
                   ),
                 ),
-                ChildrenViewFormButtons(
+                InscriptionViewFormButtons(
                   childrenDto: childrenDto,
                 )
               ],
             ),
           );
-        } else if (state is ChildrenViewLoadedWithSelectCanEdit) {
+        } else if (state is InscriptionViewLoadedWithSelectCanEdit) {
           ChildrenDto childrenDto = state.childrenDto;
           bool canEdit = state.canEdit;
           return Form(
@@ -61,26 +60,26 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
               children: <Widget>[
                 CardHeaderOutline(
                   title: 'Personal Informations',
-                  child: ChildrenViewChildInfoForm(
+                  child: InscriptionViewChildInfoForm(
                     canEdit: canEdit,
                     childrenDto: childrenDto,
                   ),
                 ),
                 CardHeaderOutline(
                   title: 'Parent 1',
-                  child: ChildrenViewParentInfoForm(
+                  child: InscriptionViewParentInfoForm(
                     canEdit: canEdit,
                     parentDto: childrenDto.parentDto1,
                   ),
                 ),
                 CardHeaderOutline(
                   title: 'Parent 2',
-                  child: ChildrenViewParentInfoForm(
+                  child: InscriptionViewParentInfoForm(
                     canEdit: canEdit,
                     parentDto: childrenDto.parentDto2,
                   ),
                 ),
-                ChildrenViewFormButtons(
+                InscriptionViewFormButtons(
                   childrenDto: childrenDto,
                 )
               ],
@@ -93,17 +92,17 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
               children: <Widget>[
                 CardHeaderOutline(
                   title: 'Personal Informations',
-                  child: ChildrenViewChildInfoForm(),
+                  child: InscriptionViewChildInfoForm(),
                 ),
                 CardHeaderOutline(
                   title: 'Parent 1',
-                  child: ChildrenViewParentInfoForm(),
+                  child: InscriptionViewParentInfoForm(),
                 ),
                 CardHeaderOutline(
                   title: 'Parent 2',
-                  child: ChildrenViewParentInfoForm(),
+                  child: InscriptionViewParentInfoForm(),
                 ),
-                const ChildrenViewFormButtons()
+                const InscriptionViewFormButtons()
               ],
             ),
           );
@@ -114,8 +113,8 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
 }
 
 //Form child
-class ChildrenViewChildInfoForm extends StatelessWidget {
-  ChildrenViewChildInfoForm({
+class InscriptionViewChildInfoForm extends StatelessWidget {
+  InscriptionViewChildInfoForm({
     super.key,
     ChildrenDto? childrenDto,
     this.canEdit = false,
@@ -259,7 +258,7 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   controller: _textEditingControllerDateOfBirth,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Date of Birth',
+                    labelText: 'Date of Birth (YYYY-MM-DD)',
                   ),
                 ),
               ),
@@ -392,8 +391,8 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
 }
 
 //Form parent
-class ChildrenViewParentInfoForm extends StatelessWidget {
-  ChildrenViewParentInfoForm({
+class InscriptionViewParentInfoForm extends StatelessWidget {
+  InscriptionViewParentInfoForm({
     super.key,
     ParentDto? parentDto,
     this.canEdit = false,
@@ -504,8 +503,8 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
 }
 
 //Form buttons
-class ChildrenViewFormButtons extends StatefulWidget {
-  const ChildrenViewFormButtons({
+class InscriptionViewFormButtons extends StatefulWidget {
+  const InscriptionViewFormButtons({
     super.key,
     this.childrenDto,
   });
@@ -513,11 +512,12 @@ class ChildrenViewFormButtons extends StatefulWidget {
   final ChildrenDto? childrenDto;
 
   @override
-  State<ChildrenViewFormButtons> createState() =>
-      _ChildrenViewFormButtonsState();
+  State<InscriptionViewFormButtons> createState() =>
+      _InscriptionViewFormButtonsState();
 }
 
-class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
+class _InscriptionViewFormButtonsState
+    extends State<InscriptionViewFormButtons> {
   @override
   Widget build(BuildContext context) {
     return Flex(
@@ -532,7 +532,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
               message: 'Add New',
               child: OutlinedButton(
                 onPressed: () {
-                  final childrenDtoCubit = context.read<ChildrenViewCubit>();
+                  final childrenDtoCubit = context.read<InscriptionViewCubit>();
                   childrenDtoCubit.onAddNewPressed();
                 },
                 child: const Icon(
@@ -553,7 +553,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                   ? OutlinedButton(
                       onPressed: () {
                         final childrenDtoCubit =
-                            context.read<ChildrenViewCubit>();
+                            context.read<InscriptionViewCubit>();
                         childrenDtoCubit.onEditPressed();
                       },
                       child: const Icon(
@@ -581,7 +581,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                   ? OutlinedButton(
                       onPressed: () {
                         final childrenDtoCubit =
-                            context.read<ChildrenViewCubit>();
+                            context.read<InscriptionViewCubit>();
                         if (widget.childrenDto != null) {
                           childrenDtoCubit.onSavePressed(widget.childrenDto!);
                         }
@@ -611,7 +611,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                   ? OutlinedButton(
                       onPressed: () {
                         final childrenDtoCubit =
-                            context.read<ChildrenViewCubit>();
+                            context.read<InscriptionViewCubit>();
                         childrenDtoCubit.onCancelPressed();
                       },
                       child: const Icon(
@@ -633,27 +633,27 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
           flex: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: widget.childrenDto?.id == 0 || widget.childrenDto == null
-                ? const Tooltip(
-                    message: 'Health Sheet',
-                    child: OutlinedButton(
-                      onPressed: null,
-                      child: Icon(Icons.description),
-                    ),
-                  )
-                : Tooltip(
-                    message: 'Health Sheet',
-                    child: PDFHealthSheet(childrenDto: widget.childrenDto!),
-                  ),
-          ),
-        ),
-        const Expanded(
-          flex: 5,
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Attendance Sheet',
-              child: PDFAttendance(),
+              message: 'Paid',
+              child: widget.childrenDto != null
+                  ? OutlinedButton(
+                      onPressed: () {
+                        final childrenDtoCubit =
+                            context.read<InscriptionViewCubit>();
+                        childrenDtoCubit.onPaidPressed(widget.childrenDto!);
+                      },
+                      child: const Icon(
+                        Icons.payment,
+                        color: Colors.green,
+                      ),
+                    )
+                  : const OutlinedButton(
+                      onPressed: null,
+                      child: Icon(
+                        Icons.payment,
+                        color: Colors.green,
+                      ),
+                    ),
             ),
           ),
         ),

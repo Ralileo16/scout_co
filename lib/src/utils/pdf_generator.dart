@@ -664,7 +664,15 @@ class PDFAttendanceState extends State<PDFAttendance> {
                 child: pw.Column(
                   children: childrenDtoList.map(
                     (ChildrenDto c) {
-                      return pw.Padding(
+                      return pw.Container(
+                        decoration: const pw.BoxDecoration(
+                          border: pw.Border(
+                            bottom: pw.BorderSide(
+                              color: PdfColor.fromInt(0xFF000000),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
                         padding: const pw.EdgeInsets.all(8.0),
                         child: pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -811,22 +819,24 @@ class PDFAttendanceState extends State<PDFAttendance> {
                       switch (dropdownValue) {
                         case 'Castors':
                           generatePDF(childrenDtoList
-                              .where((e) => e.age <= 8)
+                              .where((e) => e.age <= 8 && e.isPaid)
                               .toList());
                           break;
                         case 'Louveteaux':
                           generatePDF(childrenDtoList
-                              .where((e) => e.age <= 12 && e.age > 8)
+                              .where(
+                                  (e) => e.age <= 12 && e.age > 8 && e.isPaid)
                               .toList());
                           break;
                         case 'Aventuriers':
                           generatePDF(childrenDtoList
-                              .where((e) => e.age <= 17 && e.age > 12)
+                              .where(
+                                  (e) => e.age <= 17 && e.age > 12 && e.isPaid)
                               .toList());
                           break;
                         case 'Routiers':
                           generatePDF(childrenDtoList
-                              .where((e) => e.age > 17)
+                              .where((e) => e.age > 17 && e.isPaid)
                               .toList());
                           break;
                         default:

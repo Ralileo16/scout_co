@@ -110,7 +110,7 @@ class ChildrenDto {
         'address': address,
         'city': city,
         'province': province,
-        'postalCode': postalCode,
+        'postalCode': postalCode.replaceAll(RegExp(r'\s'), ''),
         'phone': phone,
         'email': email,
         'consentImage': consentImage,
