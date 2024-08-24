@@ -256,9 +256,31 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerDateOfBirth,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
                     labelText: 'Date of Birth (YYYY-MM-DD)',
+                    suffixIcon: IconButton(
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: _childrenDto!.dateOfBirth,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                        );
+                        String formattedDate = '';
+                        if (pickedDate != null) {
+                          _childrenDto.dateOfBirth = pickedDate;
+                          formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                          _textEditingControllerDateOfBirth.text =
+                              formattedDate;
+                          _textEditingControllerAge.text =
+                              _childrenDto.age.toString();
+                        } else {}
+                      },
+                      icon: const Icon(Icons.calendar_month),
+                    ),
                   ),
                 ),
               ),

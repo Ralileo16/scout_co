@@ -257,9 +257,31 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerDateOfBirth,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Date of Birth',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: 'Date of Birth (YYYY-MM-DD)',
+                    suffixIcon: IconButton(
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: _childrenDto!.dateOfBirth,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                        );
+                        String formattedDate = '';
+                        if (pickedDate != null) {
+                          _childrenDto.dateOfBirth = pickedDate;
+                          formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                          _textEditingControllerDateOfBirth.text =
+                              formattedDate;
+                          _textEditingControllerAge.text =
+                              _childrenDto.age.toString();
+                        } else {}
+                      },
+                      icon: const Icon(Icons.calendar_month),
+                    ),
                   ),
                 ),
               ),
@@ -645,16 +667,6 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
                     message: 'Health Sheet',
                     child: PDFHealthSheet(childrenDto: widget.childrenDto!),
                   ),
-          ),
-        ),
-        const Expanded(
-          flex: 5,
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Tooltip(
-              message: 'Attendance Sheet',
-              child: PDFAttendance(),
-            ),
           ),
         ),
       ],

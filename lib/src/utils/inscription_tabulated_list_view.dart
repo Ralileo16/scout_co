@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scout_co/cubit/inscription_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 
-class TabulatedListView extends StatelessWidget {
+class TabulatedListView extends StatefulWidget {
   const TabulatedListView({
     super.key,
     required TabController tabController,
@@ -21,6 +21,30 @@ class TabulatedListView extends StatelessWidget {
   final List<ChildrenDto> _dataTableData;
 
   @override
+  State<TabulatedListView> createState() => _TabulatedListViewState();
+}
+
+class _TabulatedListViewState extends State<TabulatedListView> {
+  late final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
@@ -34,11 +58,11 @@ class TabulatedListView extends StatelessWidget {
                     const BorderRadius.vertical(top: Radius.circular(10)),
               ),
               indicatorSize: TabBarIndicatorSize.tab,
-              controller: _tabController,
-              tabs: _tabTitles.map(
-                (String e) {
+              controller: widget._tabController,
+              tabs: widget._tabTitles.map(
+                (String header) {
                   return Tab(
-                    text: e,
+                    text: header,
                   );
                 },
               ).toList(),
@@ -46,19 +70,63 @@ class TabulatedListView extends StatelessWidget {
           ),
           Expanded(
             child: TabBarView(
-              controller: _tabController,
+              controller: widget._tabController,
               children: [
                 TabulatedListViewData(
-                  dataTableHeader: _dataTableHeader,
-                  dataTableData:
-                      _dataTableData.where((c) => !c.isPaid).toList(),
+                  dataTableHeader: widget._dataTableHeader,
+                  dataTableData: _searchController.text.isEmpty
+                      ? widget._dataTableData.where((c) => !c.isPaid).toList()
+                      : widget._dataTableData
+                          .where(
+                            (c) =>
+                                !c.isPaid &&
+                                (c.firstName.toLowerCase().contains(
+                                          _searchController.text.toLowerCase(),
+                                        ) ||
+                                    c.lastName.toLowerCase().contains(
+                                          _searchController.text.toLowerCase(),
+                                        )),
+                          )
+                          .toList(),
                 ),
                 TabulatedListViewData(
-                  dataTableHeader: _dataTableHeader,
-                  dataTableData: _dataTableData.where((c) => c.isPaid).toList(),
+                  dataTableHeader: widget._dataTableHeader,
+                  dataTableData: _searchController.text.isEmpty
+                      ? widget._dataTableData.where((c) => c.isPaid).toList()
+                      : widget._dataTableData
+                          .where(
+                            (c) =>
+                                c.isPaid &&
+                                (c.firstName.toLowerCase().contains(
+                                          _searchController.text.toLowerCase(),
+                                        ) ||
+                                    c.lastName.toLowerCase().contains(
+                                          _searchController.text.toLowerCase(),
+                                        )),
+                          )
+                          .toList(),
                 ),
               ],
             ),
+          ),
+          Flex(
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                flex: 8,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextFormField(
+                    controller: _searchController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Search',
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -85,7 +153,7 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
   bool _sortAsc = true;
   int _sortColumnIndex = 0;
 
-  bool b = true;
+  bool sort = true;
 
   onSortColum(int columnIndex, bool sortAscending) {
     if (columnIndex == 0) {
@@ -125,8 +193,10 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
 
   @override
   Widget build(BuildContext context) {
+    sort = true;
     return SingleChildScrollView(
       child: DataTable(
+        showCheckboxColumn: false,
         sortColumnIndex: _sortColumnIndex,
         sortAscending: _sortAsc,
         columns: widget._dataTableHeader.map(
@@ -155,20 +225,25 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
           },
         ).toList(),
         rows: widget._dataTableData.map(
-          (ChildrenDto e) {
-            b = !b;
+          (ChildrenDto children) {
+            sort = !sort;
             return DataRow(
+              onSelectChanged: (bool? selected) {
+                onCellTap(children.id);
+              },
               cells: <DataCell>[
                 DataCell(
                   Text(
-                    e.firstName,
-                    style: b ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
+                    children.firstName,
+                    style:
+                        sort ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
                   ),
                 ),
                 DataCell(
                   Text(
-                    e.lastName,
-                    style: b ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
+                    children.lastName,
+                    style:
+                        sort ? const TextStyle(color: Color(0xFFA0CAFD)) : null,
                   ),
                 ),
                 DataCell(
@@ -176,15 +251,15 @@ class _TabulatedListViewDataState extends State<TabulatedListViewData> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        e.age.toString(),
-                        style: b
+                        children.age.toString(),
+                        style: sort
                             ? const TextStyle(color: Color(0xFFA0CAFD))
                             : null,
                       ),
                       IconButton(
                         icon: const Icon(Icons.keyboard_arrow_right_rounded),
                         onPressed: () {
-                          onCellTap(e.id);
+                          onCellTap(children.id);
                         },
                       )
                     ],
