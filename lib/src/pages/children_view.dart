@@ -117,7 +117,8 @@ class ChildrenView extends StatelessWidget {
             ],
           );
         } else if (state is ChildrenViewLoadedWithSelect) {
-          List<ChildrenDto> dataTableData = state.childrenDtoList;
+          List<ChildrenDto> dataTableData =
+              state.childrenDtoList.where((c) => c.isPaid).toList();
           return Row(
             children: [
               Expanded(
@@ -140,7 +141,8 @@ class ChildrenView extends StatelessWidget {
             ],
           );
         } else if (state is ChildrenViewLoadedWithSelectCanEdit) {
-          List<ChildrenDto> dataTableData = state.childrenDtoList;
+          List<ChildrenDto> dataTableData =
+              state.childrenDtoList.where((c) => c.isPaid).toList();
           return Row(
             children: [
               Expanded(

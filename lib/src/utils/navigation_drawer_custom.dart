@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:scout_co/src/pages/children_view.dart';
 import 'package:scout_co/src/pages/inscription_view.dart';
-import 'package:scout_co/src/pages/test_pages_3.dart';
+import 'package:scout_co/src/pages/settings_view.dart';
+import 'package:scout_co/src/settings/settings_controller.dart';
 import 'package:scout_co/src/utils/nav_destination.dart';
 
 class NavigationDrawerCustom extends StatefulWidget {
-  const NavigationDrawerCustom({super.key});
+  const NavigationDrawerCustom({super.key, required this.settingsController});
+
+  final SettingsController settingsController;
 
   @override
   State<NavigationDrawerCustom> createState() => NavigationDrawerCustomState();
@@ -17,11 +20,17 @@ class NavigationDrawerCustomState extends State<NavigationDrawerCustom> {
 
   int screenIndex = 0;
 
-  var pages = [
-    const ChildrenViewPage(),
-    const InscriptionViewPage(),
-    PageTest3()
-  ];
+  late List<Widget> pages;
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      const ChildrenViewPage(),
+      const InscriptionViewPage(),
+      SettingsView(controller: widget.settingsController)
+    ];
+  }
 
   void handleScreenChanged(int selectedScreen) {
     setState(() {

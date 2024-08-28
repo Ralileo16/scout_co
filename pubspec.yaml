@@ -12,9 +12,11 @@ environment:
 dependencies:
   age_calculator: ^1.0.0
   bloc: ^8.1.4
+  file_picker: ^8.1.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_colorpicker: ^1.1.0
   flutter_localizations:
     sdk: flutter
   http: ^1.2.2
@@ -22,6 +24,7 @@ dependencies:
   meta: ^1.12.0
   pdf: ^3.11.1
   printing: ^5.13.2
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +34,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   # Enable generation of localized Strings from arb files.
   generate: true

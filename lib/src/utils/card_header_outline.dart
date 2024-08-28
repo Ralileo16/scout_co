@@ -7,13 +7,11 @@ class CardHeaderOutline extends StatelessWidget {
     required this.child,
     this.smallText,
     this.subTitle,
-    this.widthPercentage = 1,
   });
 
   final String? smallText, subTitle;
   final String title;
   final Widget child;
-  final double widthPercentage;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ class CardHeaderOutline extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).dialogBackgroundColor,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
                 color: Theme.of(context).dividerColor,

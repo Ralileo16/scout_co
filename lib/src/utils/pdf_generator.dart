@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/children_dto_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PDFHealthSheet extends StatefulWidget {
   const PDFHealthSheet({super.key, required this.childrenDto});
@@ -572,8 +573,10 @@ class PDFHealthSheetState extends State<PDFHealthSheet> {
         },
       ),
     );
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? pdfPath = prefs.getString('pdfPath');
     String path =
-        "C:/Users/Ralileo/Downloads/${widget.childrenDto.firstName}_${widget.childrenDto.lastName}.pdf"; //TODO ajouter un champs dans la page settings pour specifier le chemin d'accès
+        "$pdfPath/${widget.childrenDto.firstName}_${widget.childrenDto.lastName}.pdf";
     final file = File(path);
     await file.writeAsBytes(await pdf.save());
 
@@ -738,7 +741,16 @@ class PDFAttendanceState extends State<PDFAttendance> {
         },
       ),
     );
-    String path = "C:/Users/Ralileo/Downloads/example.pdf";
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? pdfPath = prefs.getString('pdfPath');
+    String group = switch (childrenDtoList.first.age) {
+      <= 8 => 'Castors',
+      <= 12 && > 8 => 'Louveteaux',
+      <= 17 && > 12 => 'Aventuriers',
+      > 17 => 'Routiers',
+      int() => "Erreur",
+    };
+    String path = "$pdfPath/Liste_Presence_$group.pdf";
     final file = File(path);
     await file.writeAsBytes(await pdf.save());
 
