@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
+import 'package:scout_co/core/localization/generated/l10n.dart';
 import 'package:scout_co/cubit/inscription_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/parent_dto.dart';
 import 'package:scout_co/src/utils/card_header_outline.dart';
-import 'package:intl/intl.dart';
+import 'package:scout_co/src/utils/locator.dart';
 
 //Form
 class InscriptionViewForm extends StatefulWidget {
@@ -17,6 +20,8 @@ class InscriptionViewForm extends StatefulWidget {
 }
 
 class _InscriptionViewFormState extends State<InscriptionViewForm> {
+  final I10n i10n = locator<I10n>();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<InscriptionViewCubit, InscriptionViewState>(
@@ -28,19 +33,19 @@ class _InscriptionViewFormState extends State<InscriptionViewForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CardHeaderOutline(
-                  title: 'Personal Informations',
+                  title: i10n.formCardHeaderPersonalInformations,
                   child: InscriptionViewChildInfoForm(
                     childrenDto: childrenDto,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 1',
+                  title: i10n.formCardHeaderParent1,
                   child: InscriptionViewParentInfoForm(
                     parentDto: childrenDto.parentDto1,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 2',
+                  title: i10n.formCardHeaderParent2,
                   child: InscriptionViewParentInfoForm(
                     parentDto: childrenDto.parentDto2,
                   ),
@@ -59,21 +64,21 @@ class _InscriptionViewFormState extends State<InscriptionViewForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CardHeaderOutline(
-                  title: 'Personal Informations',
+                  title: i10n.formCardHeaderPersonalInformations,
                   child: InscriptionViewChildInfoForm(
                     canEdit: canEdit,
                     childrenDto: childrenDto,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 1',
+                  title: i10n.formCardHeaderParent1,
                   child: InscriptionViewParentInfoForm(
                     canEdit: canEdit,
                     parentDto: childrenDto.parentDto1,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 2',
+                  title: i10n.formCardHeaderParent2,
                   child: InscriptionViewParentInfoForm(
                     canEdit: canEdit,
                     parentDto: childrenDto.parentDto2,
@@ -91,15 +96,15 @@ class _InscriptionViewFormState extends State<InscriptionViewForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CardHeaderOutline(
-                  title: 'Personal Informations',
+                  title: i10n.formCardHeaderPersonalInformations,
                   child: InscriptionViewChildInfoForm(),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 1',
+                  title: i10n.formCardHeaderParent1,
                   child: InscriptionViewParentInfoForm(),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 2',
+                  title: i10n.formCardHeaderParent2,
                   child: InscriptionViewParentInfoForm(),
                 ),
                 const InscriptionViewFormButtons()
@@ -165,6 +170,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
       _textEditingControllerCity.text = _childrenDto.city;
       _textEditingControllerPostalCode.text = _childrenDto.postalCode;
     }
+
+    final I10n i10n = locator<I10n>();
+
     return Column(
       children: [
         const SizedBox(
@@ -181,9 +189,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerFirstName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'First Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldFirstName,
                   ),
                 ),
               ),
@@ -197,9 +205,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerLastName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Last Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldLastName,
                   ),
                 ),
               ),
@@ -217,9 +225,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerPhone,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Phone Number',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldPhone,
                   ),
                 ),
               ),
@@ -233,9 +241,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerEmail,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'E-mail',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldEmail,
                   ),
                 ),
               ),
@@ -253,12 +261,14 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   onChanged: (String text) {
                     _childrenDto!.dateOfBirth =
                         DateTime.tryParse(text) ?? DateTime.now();
+                    _textEditingControllerAge.text =
+                        _childrenDto.age.toString();
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerDateOfBirth,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: 'Date of Birth (YYYY-MM-DD)',
+                    labelText: i10n.formFieldDoB,
                     suffixIcon: IconButton(
                       onPressed: () async {
                         DateTime? pickedDate = await showDatePicker(
@@ -292,9 +302,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                 child: TextFormField(
                   controller: _textEditingControllerAge,
                   enabled: false,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Age',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldAge,
                   ),
                 ),
               ),
@@ -309,9 +319,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerGender,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Gender',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldGender,
                   ),
                 ),
               ),
@@ -326,9 +336,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerProvince,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'State',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldState,
                   ),
                 ),
               ),
@@ -348,9 +358,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerAddress,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Address',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldAddress,
                   ),
                 ),
               ),
@@ -365,9 +375,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerCity,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'City',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldCity,
                   ),
                 ),
               ),
@@ -382,9 +392,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerPostalCode,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Postal Code',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldZipCode,
                   ),
                 ),
               ),
@@ -401,9 +411,9 @@ class InscriptionViewChildInfoForm extends StatelessWidget {
             controller: _textEditingControllerNotes,
             keyboardType: TextInputType.multiline,
             maxLines: 3,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Notes',
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: i10n.formFieldNotes,
             ),
           ),
         ),
@@ -442,6 +452,9 @@ class InscriptionViewParentInfoForm extends StatelessWidget {
       _textEditingControllerParentEmail.text =
           _parentDto.email ?? "Not provided";
     }
+
+    final I10n i10n = locator<I10n>();
+
     return Column(
       children: [
         const SizedBox(
@@ -458,9 +471,9 @@ class InscriptionViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentFirstName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'First Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldFirstName,
                   ),
                 ),
               ),
@@ -474,9 +487,9 @@ class InscriptionViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentLastName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Last Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldLastName,
                   ),
                 ),
               ),
@@ -494,9 +507,9 @@ class InscriptionViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentPhone,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Phone Number',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldPhone,
                   ),
                 ),
               ),
@@ -510,9 +523,9 @@ class InscriptionViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentEmail,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'E-mail',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldEmail,
                   ),
                 ),
               ),
@@ -540,6 +553,8 @@ class InscriptionViewFormButtons extends StatefulWidget {
 
 class _InscriptionViewFormButtonsState
     extends State<InscriptionViewFormButtons> {
+  final I10n i10n = locator<I10n>();
+
   @override
   Widget build(BuildContext context) {
     return Flex(
@@ -551,7 +566,7 @@ class _InscriptionViewFormButtonsState
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Add New',
+              message: i10n.formButtonsAddNewTooltip,
               child: OutlinedButton(
                 onPressed: () {
                   final childrenDtoCubit = context.read<InscriptionViewCubit>();
@@ -570,7 +585,7 @@ class _InscriptionViewFormButtonsState
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Edit',
+              message: i10n.formButtonsEditTooltip,
               child: widget.childrenDto != null
                   ? OutlinedButton(
                       onPressed: () {
@@ -598,7 +613,7 @@ class _InscriptionViewFormButtonsState
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Save',
+              message: i10n.formButtonsSaveTooltip,
               child: widget.childrenDto != null
                   ? OutlinedButton(
                       onPressed: () {
@@ -628,7 +643,7 @@ class _InscriptionViewFormButtonsState
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Cancel',
+              message: i10n.formButtonsCancelTooltip,
               child: widget.childrenDto != null
                   ? OutlinedButton(
                       onPressed: () {
@@ -656,7 +671,7 @@ class _InscriptionViewFormButtonsState
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Paid',
+              message: i10n.formButtonsPaidTooltip,
               child: widget.childrenDto != null
                   ? OutlinedButton(
                       onPressed: () {
@@ -664,9 +679,11 @@ class _InscriptionViewFormButtonsState
                             context.read<InscriptionViewCubit>();
                         childrenDtoCubit.onPaidPressed(widget.childrenDto!);
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.payment,
-                        color: Colors.green,
+                        color: widget.childrenDto!.isPaid
+                            ? Colors.red
+                            : Colors.green,
                       ),
                     )
                   : const OutlinedButton(

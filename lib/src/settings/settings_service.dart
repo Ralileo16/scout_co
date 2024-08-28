@@ -101,6 +101,15 @@ class SettingsService {
     String key = 'apiPath';
     String value = apiPath;
     await prefs.setString(key, value);
-    debugPrint(prefs.getString('apiPath'));
+  }
+
+  Future<Locale> locale() async {
+    return Locale(prefs.getString('locale') ?? 'fr');
+  }
+
+  Future<void> updateLocale(Locale locale) async {
+    String key = 'locale';
+    String value = locale.languageCode;
+    await prefs.setString(key, value);
   }
 }

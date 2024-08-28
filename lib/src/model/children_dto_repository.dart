@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:http/http.dart' as http;
 import 'package:scout_co/src/utils/api_url.dart';
@@ -43,6 +44,7 @@ class ChildrenDtoRepository {
 
   Future<void> putChildrenDto(ChildrenDto childrenDto) async {
     String apiPath = apiUrl.storedApiPath;
+    debugPrint(jsonEncode(childrenDto.toJson()));
     await http.put(Uri.parse('$apiPath/${childrenDto.id}'),
         headers: {
           'Accept': 'application/json',

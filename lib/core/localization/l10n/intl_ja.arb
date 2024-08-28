@@ -1,0 +1,222 @@
+{
+    "@@locale": "ja",
+    "appTitle": "スカウト・ショディエール・ウエスト",
+    "@appTitle": {
+        "description": "Scouts Chaudière-Ouest"
+    },
+    "navTitle": "ナビゲーション",
+    "@navTitle": {
+        "description": "Navigation"
+    },
+    "navTitleScout": "スカウト",
+    "@navTitleScout": {
+        "description": "Scouts"
+    },
+    "navTitleInscription": "碑文",
+    "@navTitleInscription": {
+        "description": "Inscriptions"
+    },
+    "navTitleSettings": "設定",
+    "@navTitleSettings": {
+        "description": "Settings"
+    },
+    "pageScoutHeaderCastors": "キャスター",
+    "@pageScoutHeaderCastors": {
+        "description": "Castors"
+    },
+    "pageScoutHeaderLouveteaux": "ルーヴトー",
+    "@pageScoutHeaderLouveteaux": {
+        "description": "Louveteaux"
+    },
+    "pageScoutHeaderAventuriers": "アヴェンチュリエ",
+    "@pageScoutHeaderAventuriers": {
+        "description": "Aventuriers"
+    },
+    "pageScoutHeaderRoutiers": "ルーティエ",
+    "@pageScoutHeaderRoutiers": {
+        "description": "Routiers"
+    },
+    "pageInscriptionsHeaderNotPaid": "未払い",
+    "@pageInscriptionsHeaderNotPaid": {
+        "description": "Not Paid"
+    },
+    "pageInscriptionsHeaderPaid": "有料",
+    "@pageInscriptionsHeaderPaid": {
+        "description": "Paid"
+    },
+    "listViewHeaderFirstName": "名前",
+    "@listViewHeaderFirstName": {
+        "description": "First Name"
+    },
+    "listViewHeaderLastName": "ラストネーム",
+    "@listViewHeaderLastName": {
+        "description": "Last Name"
+    },
+    "listViewHeaderAge": "年齢",
+    "@listViewHeaderAge": {
+        "description": "Age"
+    },
+    "formSearchBar": "検索",
+    "@formSearchBar": {
+        "description": "Search"
+    },
+    "formButtonsAttendanceTooltip": "アテンダンスシート",
+    "@formButtonsAttendanceTooltip": {
+        "description": "Attendance Sheet"
+    },
+    "formButtonsAddNewTooltip": "新規追加",
+    "@formButtonsAddNewTooltip": {
+        "description": "Add New"
+    },
+    "formButtonsEditTooltip": "編集",
+    "@formButtonsEditTooltip": {
+        "description": "Edit"
+    },
+    "formButtonsSaveTooltip": "セーブ",
+    "@formButtonsSaveTooltip": {
+        "description": "Save"
+    },
+    "formButtonsCancelTooltip": "キャンセル",
+    "@formButtonsCancelTooltip": {
+        "description": "Cancel"
+    },
+    "formButtonsPaidTooltip": "有料",
+    "@formButtonsPaidTooltip": {
+        "description": "Paid"
+    },
+    "formButtonsHealthSheetTooltip": "健康シート",
+    "@formButtonsHealthSheetTooltip": {
+        "description": "Health Sheet"
+    },
+    "formCardHeaderPersonalInformations": "個人情報",
+    "@formCardHeaderPersonalInformations": {
+        "description": "Personal Informations"
+    },
+    "formCardHeaderParent1": "親 1",
+    "@formCardHeaderParent1": {
+        "description": "Parent 1"
+    },
+    "formCardHeaderParent2": "親 2",
+    "@formCardHeaderParent2": {
+        "description": "Parent 2"
+    },
+    "formFieldFirstName": "名前",
+    "@formFieldFirstName": {
+        "description": "First Name"
+    },
+    "formFieldLastName": "ラストネーム",
+    "@formFieldLastName": {
+        "description": "Last Name"
+    },
+    "formFieldPhone": "電話番号",
+    "@formFieldPhone": {
+        "description": "Phone Number"
+    },
+    "formFieldEmail": "電子メール",
+    "@formFieldEmail": {
+        "description": "E-mail"
+    },
+    "formFieldDoB": "生年月日 (YYYY-MM-DD)",
+    "@formFieldDoB": {
+        "description": "Date of Birth (YYYY-MM-DD)"
+    },
+    "formFieldAge": "年齢",
+    "@formFieldAge": {
+        "description": "Age"
+    },
+    "formFieldGender": "性別",
+    "@formFieldGender": {
+        "description": "Gender"
+    },
+    "formFieldState": "州",
+    "@formFieldState": {
+        "description": "State"
+    },
+    "formFieldAddress": "住所",
+    "@formFieldAddress": {
+        "description": "Address"
+    },
+    "formFieldCity": "都市",
+    "@formFieldCity": {
+        "description": "City"
+    },
+    "formFieldZipCode": "郵便番号",
+    "@formFieldZipCode": {
+        "description": "Zip Code"
+    },
+    "formFieldNotes": "備考",
+    "@formFieldNotes": {
+        "description": "Notes"
+    },
+    "pageSettingsThemeColor": "テーマカラー",
+    "@pageSettingsThemeColor": {
+        "description": "Theme Color"
+    },
+    "pageSettingsLightTheme": "ライトテーマ",
+    "@pageSettingsLightTheme": {
+        "description": "Light Theme"
+    },
+    "pageSettingsDarkTheme": "ダークテーマ",
+    "@pageSettingsDarkTheme": {
+        "description": "Dark Theme"
+    },
+    "pageSettingsAccesPath": "アクスパス",
+    "@pageSettingsAccesPath": {
+        "description": "Acces Path"
+    },
+    "pageSettingsSavePathPDF": "PDF保存パス",
+    "@pageSettingsSavePathPDF": {
+        "description": "Acces Path"
+    },
+    "pageSettingsAccesPathAPI": "APIアドレスパス",
+    "@pageSettingsAccesPathAPI": {
+        "description": "API Address Path"
+    },
+    "pageSettingsAccesPathAPIUnlock": "ロック解除",
+    "@pageSettingsAccesPathAPIUnlock": {
+        "description": "Unlock"
+    },
+    "pageSettingsAccesPathAPILock": "ロック",
+    "@pageSettingsAccesPathAPILock": {
+        "description": "Lock"
+    },
+    "pageSettingsLanguage": "言語",
+    "@pageSettingsLanguage": {
+        "description": "Language"
+    },
+    "pageSettingsLocaleEN": "英語",
+    "@pageSettingsLocaleEN": {
+        "description": "English"
+    },
+    "pageSettingsLocaleFR": "フランス語",
+    "@pageSettingsLocaleFR": {
+        "description": "French"
+    },
+    "pageSettingsLocaleJA": "日本語",
+    "@pageSettingsLocaleJA": {
+        "description": "Japanese"
+    },
+    "pdfGenerated": "PDF生成",
+    "@pdfGenerated": {
+        "description": "PDF Generated"
+    },
+    "pdfSavedTo": "に保存されました {path}",
+    "@pdfSavedTo": {
+        "description": "PDF has been saved to",
+        "placeholders": {
+            "path": {}
+        }
+    },
+    "pdfOK": "OK",
+    "@pdfOK": {
+        "description": "OK"
+    },
+    "pdfCancel": "キャンセル",
+    "@pdfCancel": {
+        "description": "Cancel"
+    },
+    "pdfSelectGroup": "グループを選択",
+    "@pdfSelectGroup": {
+        "description": "Select a group"
+    }
+}

@@ -120,7 +120,9 @@ class ChildrenDto {
         'fkParent1Navigation': parentDto1,
         'fkParent2Navigation': parentDto2,
         'dateRegistration': DateFormat('yyyy-MM-dd').format(dateRegistration),
-        'datePaid': datePaid,
+        'datePaid': datePaid == null
+            ? DateFormat('yyyy-MM-dd').format(dateRegistration)
+            : null,
         'isPaid': isPaid,
       };
 }

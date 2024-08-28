@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:scout_co/core/localization/generated/l10n.dart';
+
 import 'package:scout_co/cubit/children_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/parent_dto.dart';
 import 'package:scout_co/src/utils/card_header_outline.dart';
-import 'package:intl/intl.dart';
+import 'package:scout_co/src/utils/locator.dart';
 import 'package:scout_co/src/utils/pdf_generator.dart';
 
 //Form
@@ -18,6 +21,7 @@ class ChildrenViewForm extends StatefulWidget {
 }
 
 class _ChildrenViewFormState extends State<ChildrenViewForm> {
+  final I10n i10n = locator<I10n>();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChildrenViewCubit, ChildrenViewState>(
@@ -29,19 +33,19 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CardHeaderOutline(
-                  title: 'Personal Informations',
+                  title: i10n.formCardHeaderPersonalInformations,
                   child: ChildrenViewChildInfoForm(
                     childrenDto: childrenDto,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 1',
+                  title: i10n.formCardHeaderParent1,
                   child: ChildrenViewParentInfoForm(
                     parentDto: childrenDto.parentDto1,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 2',
+                  title: i10n.formCardHeaderParent2,
                   child: ChildrenViewParentInfoForm(
                     parentDto: childrenDto.parentDto2,
                   ),
@@ -60,21 +64,21 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CardHeaderOutline(
-                  title: 'Personal Informations',
+                  title: i10n.formCardHeaderPersonalInformations,
                   child: ChildrenViewChildInfoForm(
                     canEdit: canEdit,
                     childrenDto: childrenDto,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 1',
+                  title: i10n.formCardHeaderParent1,
                   child: ChildrenViewParentInfoForm(
                     canEdit: canEdit,
                     parentDto: childrenDto.parentDto1,
                   ),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 2',
+                  title: i10n.formCardHeaderParent2,
                   child: ChildrenViewParentInfoForm(
                     canEdit: canEdit,
                     parentDto: childrenDto.parentDto2,
@@ -92,15 +96,15 @@ class _ChildrenViewFormState extends State<ChildrenViewForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CardHeaderOutline(
-                  title: 'Personal Informations',
+                  title: i10n.formCardHeaderPersonalInformations,
                   child: ChildrenViewChildInfoForm(),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 1',
+                  title: i10n.formCardHeaderParent1,
                   child: ChildrenViewParentInfoForm(),
                 ),
                 CardHeaderOutline(
-                  title: 'Parent 2',
+                  title: i10n.formCardHeaderParent2,
                   child: ChildrenViewParentInfoForm(),
                 ),
                 const ChildrenViewFormButtons()
@@ -166,6 +170,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
       _textEditingControllerCity.text = _childrenDto.city;
       _textEditingControllerPostalCode.text = _childrenDto.postalCode;
     }
+
+    final I10n i10n = locator<I10n>();
+
     return Column(
       children: [
         const SizedBox(
@@ -182,9 +189,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerFirstName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'First Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldFirstName,
                   ),
                 ),
               ),
@@ -198,9 +205,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerLastName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Last Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldLastName,
                   ),
                 ),
               ),
@@ -218,9 +225,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerPhone,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Phone Number',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldPhone,
                   ),
                 ),
               ),
@@ -234,9 +241,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerEmail,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'E-mail',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldEmail,
                   ),
                 ),
               ),
@@ -254,12 +261,14 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   onChanged: (String text) {
                     _childrenDto!.dateOfBirth =
                         DateTime.tryParse(text) ?? DateTime.now();
+                    _textEditingControllerAge.text =
+                        _childrenDto.age.toString();
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerDateOfBirth,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: 'Date of Birth (YYYY-MM-DD)',
+                    labelText: i10n.formFieldDoB,
                     suffixIcon: IconButton(
                       onPressed: () async {
                         DateTime? pickedDate = await showDatePicker(
@@ -293,9 +302,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                 child: TextFormField(
                   controller: _textEditingControllerAge,
                   enabled: false,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Age',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldAge,
                   ),
                 ),
               ),
@@ -310,9 +319,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerGender,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Gender',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldGender,
                   ),
                 ),
               ),
@@ -327,9 +336,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerProvince,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'State',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldState,
                   ),
                 ),
               ),
@@ -349,9 +358,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerAddress,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Address',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldAddress,
                   ),
                 ),
               ),
@@ -366,9 +375,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerCity,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'City',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldCity,
                   ),
                 ),
               ),
@@ -383,9 +392,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerPostalCode,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Postal Code',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldZipCode,
                   ),
                 ),
               ),
@@ -402,9 +411,9 @@ class ChildrenViewChildInfoForm extends StatelessWidget {
             controller: _textEditingControllerNotes,
             keyboardType: TextInputType.multiline,
             maxLines: 3,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Notes',
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: i10n.formFieldNotes,
             ),
           ),
         ),
@@ -443,6 +452,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
       _textEditingControllerParentEmail.text =
           _parentDto.email ?? "Not provided";
     }
+
+    final I10n i10n = locator<I10n>();
+
     return Column(
       children: [
         const SizedBox(
@@ -459,9 +471,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentFirstName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'First Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldFirstName,
                   ),
                 ),
               ),
@@ -475,9 +487,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentLastName,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Last Name',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldLastName,
                   ),
                 ),
               ),
@@ -495,9 +507,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentPhone,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Phone Number',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldPhone,
                   ),
                 ),
               ),
@@ -511,9 +523,9 @@ class ChildrenViewParentInfoForm extends StatelessWidget {
                   },
                   enabled: canEdit,
                   controller: _textEditingControllerParentEmail,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'E-mail',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: i10n.formFieldEmail,
                   ),
                 ),
               ),
@@ -540,6 +552,8 @@ class ChildrenViewFormButtons extends StatefulWidget {
 }
 
 class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
+  final I10n i10n = locator<I10n>();
+
   @override
   Widget build(BuildContext context) {
     return Flex(
@@ -551,7 +565,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Add New',
+              message: i10n.formButtonsAddNewTooltip,
               child: OutlinedButton(
                 onPressed: () {
                   final childrenDtoCubit = context.read<ChildrenViewCubit>();
@@ -570,7 +584,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Edit',
+              message: i10n.formButtonsEditTooltip,
               child: widget.childrenDto != null
                   ? OutlinedButton(
                       onPressed: () {
@@ -598,7 +612,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Save',
+              message: i10n.formButtonsSaveTooltip,
               child: widget.childrenDto != null
                   ? OutlinedButton(
                       onPressed: () {
@@ -628,7 +642,7 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message: 'Cancel',
+              message: i10n.formButtonsCancelTooltip,
               child: widget.childrenDto != null
                   ? OutlinedButton(
                       onPressed: () {
@@ -656,15 +670,15 @@ class _ChildrenViewFormButtonsState extends State<ChildrenViewFormButtons> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: widget.childrenDto?.id == 0 || widget.childrenDto == null
-                ? const Tooltip(
-                    message: 'Health Sheet',
-                    child: OutlinedButton(
+                ? Tooltip(
+                    message: i10n.formButtonsHealthSheetTooltip,
+                    child: const OutlinedButton(
                       onPressed: null,
                       child: Icon(Icons.description),
                     ),
                   )
                 : Tooltip(
-                    message: 'Health Sheet',
+                    message: i10n.formButtonsHealthSheetTooltip,
                     child: PDFHealthSheet(childrenDto: widget.childrenDto!),
                   ),
           ),

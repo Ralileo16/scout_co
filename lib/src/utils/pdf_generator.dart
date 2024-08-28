@@ -3,10 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:scout_co/core/localization/generated/l10n.dart';
 import 'dart:io';
 
 import 'package:scout_co/src/model/children_dto.dart';
 import 'package:scout_co/src/model/children_dto_repository.dart';
+import 'package:scout_co/src/utils/locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PDFHealthSheet extends StatefulWidget {
@@ -582,17 +584,18 @@ class PDFHealthSheetState extends State<PDFHealthSheet> {
 
     // Check if the widget is still mounted before showing the dialog
     if (mounted) {
+      final I10n i10n = locator<I10n>();
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('PDF Generated'),
-          content: Text('PDF has been saved to $path'),
+          title: Text(i10n.pdfGenerated),
+          content: Text(i10n.pdfSavedTo(path)),
           actions: [
             OutlinedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: Text(i10n.pdfOK),
             ),
           ],
         ),
@@ -623,124 +626,132 @@ class PDFAttendanceState extends State<PDFAttendance> {
     final netImageLogo = await networkImage(
         'https://static.vecteezy.com/system/resources/previews/023/527/936/non_2x/a-hiking-logo-design-with-a-male-hiker-walking-through-a-trail-surrounded-by-trees-and-mountains-vector.jpg');
 
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) {
-          return pw.Column(
-            children: [
-              pw.SizedBox(
-                height: 48,
-                child: pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
-                  children: [
-                    pw.Image(netImageLogo),
-                    pw.Row(
-                      children: [
-                        pw.Text(
-                          'FEUILLE ',
-                          style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.normal, fontSize: 32),
-                        ),
-                        pw.Text(
-                          'PRÉSENCE',
-                          style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.bold, fontSize: 32),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              pw.SizedBox(
-                height: 42,
-                child: pw.Text(
-                  "Liste des enfants",
-                  style: pw.TextStyle(
-                    decoration: pw.TextDecoration.underline,
-                    fontWeight: pw.FontWeight.normal,
-                    fontSize: 28,
-                    fontStyle: pw.FontStyle.italic,
+    childrenDtoList.sort((a, b) => a.lastName.compareTo(b.lastName));
+
+    int pageCount = (childrenDtoList.length / 10).ceil();
+
+    for (int i = 0; i < pageCount; i++) {
+      pdf.addPage(
+        pw.Page(
+          build: (pw.Context context) {
+            return pw.Column(
+              children: [
+                pw.SizedBox(
+                  height: 48,
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+                    children: [
+                      pw.Image(netImageLogo),
+                      pw.Row(
+                        children: [
+                          pw.Text(
+                            'FEUILLE ',
+                            style: pw.TextStyle(
+                                fontWeight: pw.FontWeight.normal, fontSize: 32),
+                          ),
+                          pw.Text(
+                            'PRÉSENCE',
+                            style: pw.TextStyle(
+                                fontWeight: pw.FontWeight.bold, fontSize: 32),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              pw.Container(
-                child: pw.Column(
-                  children: childrenDtoList.map(
-                    (ChildrenDto c) {
-                      return pw.Container(
-                        decoration: const pw.BoxDecoration(
-                          border: pw.Border(
-                            bottom: pw.BorderSide(
-                              color: PdfColor.fromInt(0xFF000000),
-                              width: 2.0,
+                pw.SizedBox(
+                  height: 42,
+                  child: pw.Text(
+                    "Liste des enfants",
+                    style: pw.TextStyle(
+                      decoration: pw.TextDecoration.underline,
+                      fontWeight: pw.FontWeight.normal,
+                      fontSize: 28,
+                      fontStyle: pw.FontStyle.italic,
+                    ),
+                  ),
+                ),
+                pw.Container(
+                  child: pw.Column(
+                    children: childrenDtoList.skip(i * 10).take(10).map(
+                      (ChildrenDto c) {
+                        return pw.Container(
+                          decoration: const pw.BoxDecoration(
+                            border: pw.Border(
+                              bottom: pw.BorderSide(
+                                color: PdfColor.fromInt(0xFF000000),
+                                width: 2.0,
+                              ),
                             ),
                           ),
-                        ),
-                        padding: const pw.EdgeInsets.all(8.0),
-                        child: pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
-                            pw.Text('${c.firstName} ${c.lastName}'),
-                            pw.Container(
-                              child: pw.Row(
-                                children: [
-                                  pw.Text('AM: '),
-                                  pw.Container(
-                                    decoration: pw.BoxDecoration(
-                                      border: pw.Border.all(
-                                        color:
-                                            const PdfColor.fromInt(0xFF000000),
-                                      ),
-                                    ),
-                                    child: pw.Checkbox(
-                                      name: '${c.id}AM',
-                                      value: false,
-                                    ),
-                                  ),
-                                  pw.Text(' PM: '),
-                                  pw.Container(
-                                    decoration: pw.BoxDecoration(
-                                      border: pw.Border.all(
-                                        color:
-                                            const PdfColor.fromInt(0xFF000000),
-                                      ),
-                                    ),
-                                    child: pw.Checkbox(
-                                      name: '${c.id}PM',
-                                      value: false,
-                                    ),
-                                  ),
-                                  pw.Padding(
-                                    padding: const pw.EdgeInsets.only(left: 8),
-                                    child: pw.Container(
+                          padding: const pw.EdgeInsets.all(8.0),
+                          child: pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.Text('${c.firstName} ${c.lastName}'),
+                              pw.Container(
+                                child: pw.Row(
+                                  children: [
+                                    pw.Text('AM: '),
+                                    pw.Container(
                                       decoration: pw.BoxDecoration(
                                         border: pw.Border.all(
                                           color: const PdfColor.fromInt(
                                               0xFF000000),
                                         ),
                                       ),
-                                      child: pw.TextField(
-                                        height: 42,
-                                        width: 225,
-                                        name: '${c.id}Notes',
+                                      child: pw.Checkbox(
+                                        name: '${c.id}AM',
+                                        value: false,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    pw.Text(' PM: '),
+                                    pw.Container(
+                                      decoration: pw.BoxDecoration(
+                                        border: pw.Border.all(
+                                          color: const PdfColor.fromInt(
+                                              0xFF000000),
+                                        ),
+                                      ),
+                                      child: pw.Checkbox(
+                                        name: '${c.id}PM',
+                                        value: false,
+                                      ),
+                                    ),
+                                    pw.Padding(
+                                      padding:
+                                          const pw.EdgeInsets.only(left: 8),
+                                      child: pw.Container(
+                                        decoration: pw.BoxDecoration(
+                                          border: pw.Border.all(
+                                            color: const PdfColor.fromInt(
+                                                0xFF000000),
+                                          ),
+                                        ),
+                                        child: pw.TextField(
+                                          height: 42,
+                                          width: 225,
+                                          name: '${c.id}Notes',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ).toList(),
+                            ],
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
+              ],
+            );
+          },
+        ),
+      );
+    }
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? pdfPath = prefs.getString('pdfPath');
     String group = switch (childrenDtoList.first.age) {
@@ -756,17 +767,18 @@ class PDFAttendanceState extends State<PDFAttendance> {
 
     // Check if the widget is still mounted before showing the dialog
     if (mounted) {
+      final I10n i10n = locator<I10n>();
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('PDF Generated'),
-          content: Text('PDF has been saved to $path'),
+          title: Text(i10n.pdfGenerated),
+          content: Text(i10n.pdfSavedTo(path)),
           actions: [
             OutlinedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'),
+              child: Text(i10n.pdfOK),
             ),
           ],
         ),
@@ -776,20 +788,21 @@ class PDFAttendanceState extends State<PDFAttendance> {
 
   @override
   Widget build(BuildContext context) {
+    final I10n i10n = locator<I10n>();
     return OutlinedButton(
       child: const Icon(Icons.list),
       onPressed: () {
-        const List<String> category = <String>[
-          'Castors',
-          'Louveteaux',
-          'Aventuriers',
-          'Routiers'
+        List<Map<String, String>> categories = [
+          {i10n.pageScoutHeaderCastors: 'Castors'},
+          {i10n.pageScoutHeaderLouveteaux: 'Louveteaux'},
+          {i10n.pageScoutHeaderAventuriers: 'Aventuriers'},
+          {i10n.pageScoutHeaderRoutiers: 'Routiers'},
         ];
-        String dropdownValue = category.first;
+        String dropdownValue = categories.first.entries.first.value;
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Select a Category'),
+            title: Text(i10n.pdfSelectGroup),
             content: ConstrainedBox(
               constraints: BoxConstraints.loose(const Size(40, 40)),
               child: Center(
@@ -802,11 +815,11 @@ class PDFAttendanceState extends State<PDFAttendance> {
                       },
                     );
                   },
-                  dropdownMenuEntries: category.map(
-                    (String value) {
+                  dropdownMenuEntries: categories.map(
+                    (Map<String, String> c) {
                       return DropdownMenuEntry<String>(
-                        value: value,
-                        label: value,
+                        value: c.entries.first.value,
+                        label: c.entries.first.key,
                       );
                     },
                   ).toList(),
@@ -821,7 +834,7 @@ class PDFAttendanceState extends State<PDFAttendance> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text('CANCEL'),
+                    child: Text(i10n.pdfCancel),
                   ),
                   OutlinedButton(
                     onPressed: () async {
@@ -855,7 +868,7 @@ class PDFAttendanceState extends State<PDFAttendance> {
                           generatePDF(childrenDtoList);
                       }
                     },
-                    child: const Text('OK'),
+                    child: Text(i10n.pdfOK),
                   ),
                 ],
               ),

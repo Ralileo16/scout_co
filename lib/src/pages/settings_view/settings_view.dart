@@ -1,8 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:scout_co/core/localization/generated/l10n.dart';
 import 'package:scout_co/src/settings/settings_controller.dart';
 import 'package:scout_co/src/utils/card_header_outline.dart';
+import 'package:scout_co/src/utils/locator.dart';
 
 class SettingsView extends StatelessWidget {
   SettingsView({super.key, required this.controller});
@@ -16,6 +18,8 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final I10n i10n = locator<I10n>();
+
     textEditingControllerPDF.text = controller.pdfPath;
     textEditingControllerAPI.text = controller.apiPath;
     return ListenableBuilder(
@@ -27,7 +31,7 @@ class SettingsView extends StatelessWidget {
               child: Column(
                 children: [
                   CardHeaderOutline(
-                    title: 'Couleur du thème',
+                    title: i10n.pageSettingsThemeColor,
                     child: Column(
                       children: [
                         Padding(
@@ -47,14 +51,14 @@ class SettingsView extends StatelessWidget {
                           child: DropdownButton<ThemeMode>(
                             value: controller.themeMode,
                             onChanged: controller.updateThemeMode,
-                            items: const [
+                            items: [
                               DropdownMenuItem(
                                 value: ThemeMode.light,
-                                child: Text('Light Theme'),
+                                child: Text(i10n.pageSettingsLightTheme),
                               ),
                               DropdownMenuItem(
                                 value: ThemeMode.dark,
-                                child: Text('Dark Theme'),
+                                child: Text(i10n.pageSettingsDarkTheme),
                               )
                             ],
                           ),
@@ -63,7 +67,39 @@ class SettingsView extends StatelessWidget {
                     ),
                   ),
                   CardHeaderOutline(
-                    title: "Chemin d'accès",
+                    title: i10n.pageSettingsLanguage,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 32.0,
+                        left: 24.0,
+                        right: 24.0,
+                        bottom: 16.0,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButton<Locale>(
+                          value: controller.locale,
+                          onChanged: controller.updateLocale,
+                          items: [
+                            DropdownMenuItem(
+                              value: const Locale('en'),
+                              child: Text(i10n.pageSettingsLocaleEN),
+                            ),
+                            DropdownMenuItem(
+                              value: const Locale('fr'),
+                              child: Text(i10n.pageSettingsLocaleFR),
+                            ),
+                            DropdownMenuItem(
+                              value: const Locale('ja'),
+                              child: Text(i10n.pageSettingsLocaleJA),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  CardHeaderOutline(
+                    title: i10n.pageSettingsAccesPath,
                     child: Padding(
                       padding: const EdgeInsets.only(
                         top: 32.0,
@@ -82,8 +118,9 @@ class SettingsView extends StatelessWidget {
                               },
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
-                                labelText: 'Chemin de sauvegarde PDF',
+                                labelText: i10n.pageSettingsSavePathPDF,
                                 suffixIcon: IconButton(
+                                  color: Colors.yellow,
                                   onPressed: () async {
                                     String? selectedDirectory = await FilePicker
                                         .platform
@@ -173,6 +210,8 @@ class _APITextFieldState extends State<APITextField> {
 
   @override
   Widget build(BuildContext context) {
+    final I10n i10n = locator<I10n>();
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
@@ -185,9 +224,9 @@ class _APITextFieldState extends State<APITextField> {
                   widget.controller.updateAPIPath(text);
                 }
               },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Adresse API',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: i10n.pageSettingsAccesPathAPI,
               ),
               enabled: _isEditable,
             ),
@@ -201,14 +240,21 @@ class _APITextFieldState extends State<APITextField> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(3.0),
-              child: IconButton(
-                onPressed: () => {
-                  if (!_isEditable)
-                    _showConfirmationDialog(context)
-                  else
-                    _toggleEditable(false)
-                },
-                icon: const Icon(Icons.lock),
+              child: Tooltip(
+                message: _isEditable
+                    ? i10n.pageSettingsAccesPathAPILock
+                    : i10n.pageSettingsAccesPathAPIUnlock,
+                child: IconButton(
+                  onPressed: () => {
+                    if (!_isEditable)
+                      _showConfirmationDialog(context)
+                    else
+                      _toggleEditable(false)
+                  },
+                  icon: _isEditable
+                      ? const Icon(Icons.lock_open)
+                      : const Icon(Icons.lock),
+                ),
               ),
             ),
           ),

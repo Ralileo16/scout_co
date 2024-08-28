@@ -1,0 +1,222 @@
+{
+    "@@locale": "en",
+    "appTitle": "Scouts Chaudière-Ouest",
+    "@appTitle": {
+        "description": "Scouts Chaudière-Ouest"
+    },
+    "navTitle": "Navigation",
+    "@navTitle": {
+        "description": "Navigation"
+    },
+    "navTitleScout": "Scouts",
+    "@navTitleScout": {
+        "description": "Scouts"
+    },
+    "navTitleInscription": "Inscriptions",
+    "@navTitleInscription": {
+        "description": "Inscriptions"
+    },
+    "navTitleSettings": "Settings",
+    "@navTitleSettings": {
+        "description": "Settings"
+    },
+    "pageScoutHeaderCastors": "Castors",
+    "@pageScoutHeaderCastors": {
+        "description": "Castors"
+    },
+    "pageScoutHeaderLouveteaux": "Louveteaux",
+    "@pageScoutHeaderLouveteaux": {
+        "description": "Louveteaux"
+    },
+    "pageScoutHeaderAventuriers": "Aventuriers",
+    "@pageScoutHeaderAventuriers": {
+        "description": "Aventuriers"
+    },
+    "pageScoutHeaderRoutiers": "Routiers",
+    "@pageScoutHeaderRoutiers": {
+        "description": "Routiers"
+    },
+    "pageInscriptionsHeaderNotPaid": "Not Paid",
+    "@pageInscriptionsHeaderNotPaid": {
+        "description": "Not Paid"
+    },
+    "pageInscriptionsHeaderPaid": "Paid",
+    "@pageInscriptionsHeaderPaid": {
+        "description": "Paid"
+    },
+    "listViewHeaderFirstName": "First Name",
+    "@listViewHeaderFirstName": {
+        "description": "First Name"
+    },
+    "listViewHeaderLastName": "Last Name",
+    "@listViewHeaderLastName": {
+        "description": "Last Name"
+    },
+    "listViewHeaderAge": "Age",
+    "@listViewHeaderAge": {
+        "description": "Age"
+    },
+    "formSearchBar": "Search",
+    "@formSearchBar": {
+        "description": "Search"
+    },
+    "formButtonsAttendanceTooltip": "Attendance Sheet",
+    "@formButtonsAttendanceTooltip": {
+        "description": "Attendance Sheet"
+    },
+    "formButtonsAddNewTooltip": "Add New",
+    "@formButtonsAddNewTooltip": {
+        "description": "Add New"
+    },
+    "formButtonsEditTooltip": "Edit",
+    "@formButtonsEditTooltip": {
+        "description": "Edit"
+    },
+    "formButtonsSaveTooltip": "Save",
+    "@formButtonsSaveTooltip": {
+        "description": "Save"
+    },
+    "formButtonsCancelTooltip": "Cancel",
+    "@formButtonsCancelTooltip": {
+        "description": "Cancel"
+    },
+    "formButtonsPaidTooltip": "Paid",
+    "@formButtonsPaidTooltip": {
+        "description": "Paid"
+    },
+    "formButtonsHealthSheetTooltip": "Health Sheet",
+    "@formButtonsHealthSheetTooltip": {
+        "description": "Health Sheet"
+    },
+    "formCardHeaderPersonalInformations": "Personal Informations",
+    "@formCardHeaderPersonalInformations": {
+        "description": "Personal Informations"
+    },
+    "formCardHeaderParent1": "Parent 1",
+    "@formCardHeaderParent1": {
+        "description": "Parent 1"
+    },
+    "formCardHeaderParent2": "Parent 2",
+    "@formCardHeaderParent2": {
+        "description": "Parent 2"
+    },
+    "formFieldFirstName": "First Name",
+    "@formFieldFirstName": {
+        "description": "First Name"
+    },
+    "formFieldLastName": "Last Name",
+    "@formFieldLastName": {
+        "description": "Last Name"
+    },
+    "formFieldPhone": "Phone Number",
+    "@formFieldPhone": {
+        "description": "Phone Number"
+    },
+    "formFieldEmail": "E-mail",
+    "@formFieldEmail": {
+        "description": "E-mail"
+    },
+    "formFieldDoB": "Date of Birth (YYYY-MM-DD)",
+    "@formFieldDoB": {
+        "description": "Date of Birth (YYYY-MM-DD)"
+    },
+    "formFieldAge": "Age",
+    "@formFieldAge": {
+        "description": "Age"
+    },
+    "formFieldGender": "Gender",
+    "@formFieldGender": {
+        "description": "Gender"
+    },
+    "formFieldState": "State",
+    "@formFieldState": {
+        "description": "State"
+    },
+    "formFieldAddress": "Address",
+    "@formFieldAddress": {
+        "description": "Address"
+    },
+    "formFieldCity": "City",
+    "@formFieldCity": {
+        "description": "City"
+    },
+    "formFieldZipCode": "Zip Code",
+    "@formFieldZipCode": {
+        "description": "Zip Code"
+    },
+    "formFieldNotes": "Notes",
+    "@formFieldNotes": {
+        "description": "Notes"
+    },
+    "pageSettingsThemeColor": "Theme Color",
+    "@pageSettingsThemeColor": {
+        "description": "Theme Color"
+    },
+    "pageSettingsLightTheme": "Light Theme",
+    "@pageSettingsLightTheme": {
+        "description": "Light Theme"
+    },
+    "pageSettingsDarkTheme": "Dark Theme",
+    "@pageSettingsDarkTheme": {
+        "description": "Dark Theme"
+    },
+    "pageSettingsAccesPath": "Acces Path",
+    "@pageSettingsAccesPath": {
+        "description": "Acces Path"
+    },
+    "pageSettingsSavePathPDF": "PDF Save Path",
+    "@pageSettingsSavePathPDF": {
+        "description": "Acces Path"
+    },
+    "pageSettingsAccesPathAPI": "API Address Path",
+    "@pageSettingsAccesPathAPI": {
+        "description": "API Address Path"
+    },
+    "pageSettingsAccesPathAPIUnlock": "Unlock",
+    "@pageSettingsAccesPathAPIUnlock": {
+        "description": "Unlock"
+    },
+    "pageSettingsAccesPathAPILock": "Lock",
+    "@pageSettingsAccesPathAPILock": {
+        "description": "Lock"
+    },
+    "pageSettingsLanguage": "Language",
+    "@pageSettingsLanguage": {
+        "description": "Language"
+    },
+    "pageSettingsLocaleEN": "English",
+    "@pageSettingsLocaleEN": {
+        "description": "English"
+    },
+    "pageSettingsLocaleFR": "French",
+    "@pageSettingsLocaleFR": {
+        "description": "French"
+    },
+    "pageSettingsLocaleJA": "Japanese",
+    "@pageSettingsLocaleJA": {
+        "description": "Japanese"
+    },
+    "pdfGenerated": "PDF Generated",
+    "@pdfGenerated": {
+        "description": "PDF Generated"
+    },
+    "pdfSavedTo": "PDF has been saved to {path}",
+    "@pdfSavedTo": {
+        "description": "PDF has been saved to",
+        "placeholders": {
+            "path": {}
+        }
+    },
+    "pdfOK": "OK",
+    "@pdfOK": {
+        "description": "OK"
+    },
+    "pdfCancel": "Cancel",
+    "@pdfCancel": {
+        "description": "Cancel"
+    },
+    "pdfSelectGroup": "Select a group",
+    "@pdfSelectGroup": {
+        "description": "Select a group"
+    }
+}

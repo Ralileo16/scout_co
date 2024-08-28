@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scout_co/core/localization/generated/l10n.dart';
 import 'package:scout_co/cubit/children_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
+import 'package:scout_co/src/utils/locator.dart';
 import 'package:scout_co/src/utils/pdf_generator.dart';
 
 class TabulatedListView extends StatefulWidget {
@@ -47,6 +49,7 @@ class TabulatedListViewState extends State<TabulatedListView> {
 
   @override
   Widget build(BuildContext context) {
+    final I10n i10n = locator<I10n>();
     return SafeArea(
       child: Column(
         children: [
@@ -168,20 +171,20 @@ class TabulatedListViewState extends State<TabulatedListView> {
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
                     controller: _searchController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Search',
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: i10n.formSearchBar,
                     ),
                   ),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
-                    message: 'Attendance Sheet',
-                    child: PDFAttendance(),
+                    message: i10n.formButtonsAttendanceTooltip,
+                    child: const PDFAttendance(),
                   ),
                 ),
               ),

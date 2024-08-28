@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'settings_service.dart';
 
 class SettingsController with ChangeNotifier {
@@ -19,11 +18,15 @@ class SettingsController with ChangeNotifier {
   late String _apiPath;
   String get apiPath => _apiPath;
 
+  late Locale _locale;
+  Locale get locale => _locale;
+
   Future<void> loadSettings() async {
     _themeMode = await _settingsService.themeMode();
     _themeColor = await _settingsService.themeColor();
     _pdfPath = await _settingsService.pdfPath();
     _apiPath = await _settingsService.apiPath();
+    _locale = await _settingsService.locale();
 
     notifyListeners();
   }
@@ -66,5 +69,15 @@ class SettingsController with ChangeNotifier {
     notifyListeners();
 
     await _settingsService.updateAPIPath(newAPIPath);
+  }
+
+  Future<void> updateLocale(Locale? newLocale) async {
+    if (newLocale == null) return;
+    if (newLocale == _locale) return;
+
+    _locale = newLocale;
+    notifyListeners();
+
+    await _settingsService.updateLocale(newLocale);
   }
 }

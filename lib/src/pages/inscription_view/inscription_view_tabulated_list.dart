@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:scout_co/core/localization/generated/l10n.dart';
 import 'package:scout_co/cubit/inscription_view_cubit.dart';
 import 'package:scout_co/src/model/children_dto.dart';
+import 'package:scout_co/src/utils/locator.dart';
 
 class TabulatedListView extends StatefulWidget {
   const TabulatedListView({
@@ -46,6 +49,8 @@ class _TabulatedListViewState extends State<TabulatedListView> {
 
   @override
   Widget build(BuildContext context) {
+    final I10n i10n = locator<I10n>();
+
     return SafeArea(
       child: Column(
         children: [
@@ -119,9 +124,9 @@ class _TabulatedListViewState extends State<TabulatedListView> {
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
                     controller: _searchController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Search',
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: i10n.formSearchBar,
                     ),
                   ),
                 ),
