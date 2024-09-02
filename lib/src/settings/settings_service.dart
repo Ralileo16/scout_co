@@ -20,6 +20,9 @@ class SettingsService {
 
   Future<ThemeMode> themeMode() async {
     await initialize();
+    if (prefs.getString('themeMode') == null) {
+      prefs.setString('themeMode', 'ThemeMode.dark');
+    }
     return prefs.getString('themeMode') == 'ThemeMode.dark'
         ? ThemeMode.dark
         : ThemeMode.light;
