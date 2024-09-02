@@ -180,20 +180,21 @@ class _APITextFieldState extends State<APITextField> {
   }
 
   Future<void> _showConfirmationDialog(BuildContext context) async {
+    final I10n i10n = locator<I10n>();
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirmation'),
-          content: const Text('Do you really want to modify the API value?'),
+          title: Text(i10n.settingsConfirmation),
+          content: Text(i10n.settingsEditApi),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Yes'),
+              child: Text(i10n.settingsYes),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('No'),
+              child: Text(i10n.settingsNo),
             ),
           ],
         );

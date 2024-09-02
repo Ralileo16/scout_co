@@ -589,6 +589,46 @@ class I10n {
       args: [],
     );
   }
+
+  /// `Confirmation`
+  String get settingsConfirmation {
+    return Intl.message(
+      'Confirmation',
+      name: 'settingsConfirmation',
+      desc: 'Confirmation',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to modify the API value?`
+  String get settingsEditApi {
+    return Intl.message(
+      'Do you really want to modify the API value?',
+      name: 'settingsEditApi',
+      desc: 'Do you really want to modify the API value?',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get settingsYes {
+    return Intl.message(
+      'Yes',
+      name: 'settingsYes',
+      desc: 'Yes',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get settingsNo {
+    return Intl.message(
+      'No',
+      name: 'settingsNo',
+      desc: 'No',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<I10n> {

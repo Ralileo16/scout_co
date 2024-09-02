@@ -95,6 +95,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "pdfGenerated": MessageLookupByLibrary.simpleMessage("PDF生成"),
         "pdfOK": MessageLookupByLibrary.simpleMessage("OK"),
         "pdfSavedTo": m0,
-        "pdfSelectGroup": MessageLookupByLibrary.simpleMessage("グループを選択")
+        "pdfSelectGroup": MessageLookupByLibrary.simpleMessage("グループを選択"),
+        "settingsConfirmation": MessageLookupByLibrary.simpleMessage("確認"),
+        "settingsEditApi":
+            MessageLookupByLibrary.simpleMessage("本当にAPIの値を変更したいのですか?"),
+        "settingsNo": MessageLookupByLibrary.simpleMessage("いいえ"),
+        "settingsYes": MessageLookupByLibrary.simpleMessage("はい")
       };
 }

@@ -107,6 +107,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "pdfOK": MessageLookupByLibrary.simpleMessage("OK"),
         "pdfSavedTo": m0,
         "pdfSelectGroup":
-            MessageLookupByLibrary.simpleMessage("Choisissez un groupe")
+            MessageLookupByLibrary.simpleMessage("Choisissez un groupe"),
+        "settingsConfirmation":
+            MessageLookupByLibrary.simpleMessage("Confirmation"),
+        "settingsEditApi": MessageLookupByLibrary.simpleMessage(
+            "Voulez-vous vraiment modifier l\'adresse de l\'API?"),
+        "settingsNo": MessageLookupByLibrary.simpleMessage("Non"),
+        "settingsYes": MessageLookupByLibrary.simpleMessage("Oui")
       };
 }

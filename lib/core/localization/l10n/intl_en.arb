@@ -218,5 +218,21 @@
     "pdfSelectGroup": "Select a group",
     "@pdfSelectGroup": {
         "description": "Select a group"
+    },
+    "settingsConfirmation": "Confirmation",
+    "@settingsConfirmation": {
+        "description": "Confirmation"
+    },
+    "settingsEditApi": "Do you really want to modify the API value?",
+    "@settingsEditApi": {
+        "description": "Do you really want to modify the API value?"
+    },
+    "settingsYes": "Yes",
+    "@settingsYes": {
+        "description": "Yes"
+    },
+    "settingsNo": "No",
+    "@settingsNo": {
+        "description": "No"
     }
 }
